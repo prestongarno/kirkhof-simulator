@@ -33,7 +33,7 @@ public class Sim {
 		System.out.println("Max Q length:" + booth.getMaxQlength() + " people.");
 		
 		System.out.println("\nMain Queue Through put is: " + mainQ.getCompleted() + " people.");
-		System.out.println("People that are still in the main Q: " + mainQ.getLeft() + " people.");
+		System.out.println("People that are still in the main Q: " + mainQ.size() + " people.");
 		System.out.println("Max Main Queue length: " +mainQ.getMaxQlength() +" people");
 	}
 }
