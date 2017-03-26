@@ -20,6 +20,7 @@ public class Sim {
 		
 		// 		int numOfTicksNextPerson = 20
 		//      int averageBoothTime = 20
+		//edit
 		
 		PersonProducer produce = new PersonProducer(booth, 20, 18);
 		clk.add(produce);
