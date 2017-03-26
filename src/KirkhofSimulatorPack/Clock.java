@@ -11,7 +11,7 @@ public class Clock {
 	private int MAX = 100;
 	
 	public Clock() {
-		numListeners = 0;
+		numListeners = 2;
 		myListeners = new ClockListener[MAX];
 	}
 	
