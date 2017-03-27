@@ -35,7 +35,15 @@ public class PersonProducer implements ClockListener {
 			
 			int rNumber = (int)(Math.random() * 100);
 			
-			person.setEateryTime(Math.max(0,averageEateryTime*0.5*r.nextGaussian() + averageEateryTime +.5)); //sets time based on a normal curve
+			person.setEateryTime(
+					Math.max(
+							0,
+							averageEateryTime
+									*0.5
+									*r.nextGaussian()
+									+ averageEateryTime
+									+ .5)); //sets time based on a normal curve
+			
 			person.setTickTime(tick);
 			eatery1.add(person);
 		}
