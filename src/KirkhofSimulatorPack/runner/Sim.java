@@ -3,25 +3,34 @@ package KirkhofSimulatorPack.runner;
 import KirkhofSimulatorPack.*;
 
 
-/** **************************************************
- * @author Roger Ferguson
- * ***************************************************/
+/**************************************************************
+ * 
+ * 
+ **************************************************************/
 public class Sim {
-	
-	
+	/**************************************************************
+	 * 	 
+	 * @param args
+	 **************************************************************/
 	public static void main(String[] args) {
-		
+		/**Number of eateries in sim */
+		numEateries=4;
 		Clock clk = new Clock();
-		Eatery booth = new Eatery();
+		//make an array of eateries
+		Eatery booth[numEateries] = new Eatery(mainQ);
 		MainQueue mainQ = new MainQueue();
 		
 		// 		int numOfTicksNextPerson = 20
 		//      int averageBoothTime = 20
 		//edit
 		
-		PersonProducer produce = new PersonProducer(booth, 20, 18);
+		PersonProducer produce = new PersonProducer(booth[], 20, 18);
 		clk.add(produce);
-		clk.add(booth);
+		//clk.add(booth);
+				//create for loop to add clock to eateries
+				for(int i=0; i<numEateries;i++){
+					clk.add(booth[i]);
+				}
 		clk.add(mainQ);
 	
 		clk.add(new ClockListener() {
