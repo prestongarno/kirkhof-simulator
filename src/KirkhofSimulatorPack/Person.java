@@ -9,6 +9,7 @@ public class Person {
 	private int tickTime; // master clock time
 	protected double eateryTime; // time it takes to order food at eatery
 	protected double cashierTime; // time it takes to finish the
+	protected double leaveTime; // time it takes before person leaves queue
 
 	/**************************************************************
 	 * Getter for eatery time. Time for person to order and get 
@@ -17,6 +18,15 @@ public class Person {
 	 **************************************************************/
 	public double getEateryTime() {
 		return eateryTime;
+	}
+
+	/**************************************************************
+	 * Getter for leave time. Max time person will spend before
+	 * leaving the queue
+	 * @return leaveTime Time that person will spend in queue
+	 **************************************************************/
+	public double getLeaveTime() {
+		return leaveTime;
 	}
 
 	/**************************************************************
@@ -45,9 +55,19 @@ public class Person {
 	}
 
 	/**************************************************************
+	 * Setter for LeaveTime
+	 *
+	 * @param leaveTime Determines the amount of time a person
+	 * is willing to spend in the queue
+	 **************************************************************/
+	public void setLeaveTime(double leaveTime) {
+		this.leaveTime = leaveTime;
+	}
+
+	/**************************************************************
 	 * Setter for EateryTime
 	 * 
-	 * @param time Determiens the amount fo time a person spends 
+	 * @param time Determines the amount of time a person spends
 	 * at an eatery.
 	 **************************************************************/
 	public void setEateryTime(double time) {
