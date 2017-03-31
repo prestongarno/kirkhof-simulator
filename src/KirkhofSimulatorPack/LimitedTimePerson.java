@@ -1,17 +1,25 @@
 package KirkhofSimulatorPack;
 
-/**
- * Created by Alex on 3/26/2017.
- */
+/**************************************************************
+ * Set specifications for limited time person
+ * @param time average eatery time
+ **************************************************************/
 public class LimitedTimePerson extends Person {
 
-    @Override
+/**************************************************************
+ *  Method to set eatery time to be 0.5 as much as a 
+ *  regular person
+ * @param time average eatery time
+ **************************************************************/
     public void setEateryTime(double time) {
         super.setEateryTime(time*.5);
     }
-
-    @Override
-    public void setCashierTime(double time) {
-        super.setCashierTime(time);
+ /**************************************************************
+  *  Method to set leave time to be 0.5 as much as a 
+  *  regular person
+  * @param time average leave time
+  **************************************************************/
+    public void setLeaveTime(double time) {
+        super.setLeaveTime(time*0.5);
     }
 }

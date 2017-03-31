@@ -21,10 +21,11 @@ public class Sim {
 		MainQueue mainQ = new MainQueue();
 		
 		// 		int numOfTicksNextPerson = 20
-		//      int averageBoothTime = 20
-		//edit
+		//      int averageEateryTime = 18
 		
-		PersonProducer produce = new PersonProducer(booth[], 20, 18);
+		//PersonProducer(eatery,numOfTicksNextPerson, 
+		//averageEateryTime, averageCashierTime, averageLeaveTime) 
+		PersonProducer produce = new PersonProducer(booth[], 20, 18,20,20);
 		clk.add(produce);
 		//clk.add(booth);
 				//create for loop to add clock to eateries
