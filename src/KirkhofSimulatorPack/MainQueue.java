@@ -3,10 +3,13 @@ package KirkhofSimulatorPack;
 
 import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
 
+import java.util.ArrayList;
+
 
 public class MainQueue implements ClockListener {
 	
-	
+	private ArrayList<Integer> checkouts = new ArrayList<>();
+
 	/** the max amount of people that can be in the queue */
 	private int maxQlength;
 	
@@ -90,5 +93,11 @@ public class MainQueue implements ClockListener {
 	 ****************************************/
 	public void setTimeOfNextEvent(int timeOfNextEvent) {
 		this.timeOfNextEvent = timeOfNextEvent;
+	}
+
+	public void addCheckouts(int num) {
+		for(int i = 0; i < num; i++) {
+			checkouts.add(0, i);
+		}
 	}
 }
