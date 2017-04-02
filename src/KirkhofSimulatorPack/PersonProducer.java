@@ -21,6 +21,12 @@ public class PersonProducer implements ClockListener {
 	
 	/**The average amount of time each person takes*/
 	private int averageEateryTime;
+
+	/**The average amount of time each person takes at the cashier*/
+	private int averageCashierTime;
+
+	/**The average amount of time it takes for a person to leave*/
+	private int averageLeaveTime;
 	
 	/**Variable to be randomized*/
 	private Random r = new Random();
@@ -52,23 +58,26 @@ public class PersonProducer implements ClockListener {
 		if (nextPerson <= tick) {
 			nextPerson = tick + numOfTicksNextPerson;
 			
-			//Person person = new Person();
+			Person person;
 			
 			//generates numbers to 100
 			int rNumber = (int)(Math.random() * 100);
 			
 			//number falls within 10% of population
 			//create special needs
-			if(rNumber<10){
-				Person person=new SpecialNeedsPerson();
-			//number falls within 20% of population
-			//create limited time person
-			else if(rNumber<30&&rNumber>=10)
-				Person person=new LimitedTimePerson();
-			//number falls within 70% of population
-			//create regular person
-			else
-				Person person=new RegularPerson();
+			if(rNumber<10) {
+				person = new SpecialNeedsPerson();
+				//number falls within 20% of population
+				//create limited time person
+			}
+			else if(rNumber<30&&rNumber>=10) {
+				person = new LimitedTimePerson();
+				//number falls within 70% of population
+				//create regular person
+			}
+			else {
+				person = new RegularPerson();
+			}
 
 			//sets time based on normal curve for eateryTime
 			person.setEateryTime(Math.max(0,
@@ -81,7 +90,7 @@ public class PersonProducer implements ClockListener {
 					averageCashierTime * 0.5 * r.nextGaussian()
 					+ averageCashierTime + .5));
 			//sets time based on normal curve for leaveTime
-			person.setLeavetime(Math.max(0,
+			person.setLeaveTime(Math.max(0,
 					averageLeaveTime * 0.5 * r.nextGaussian()
 					+ averageLeaveTime + .5)); 
 		
