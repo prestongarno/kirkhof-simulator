@@ -14,7 +14,7 @@ public class PersonProducer implements ClockListener {
 	private int nextPerson = 0;
 	
 	/**Defines an eatery*/
-	private Eatery eatery1;
+	private Eatery eateryA[];
 	
 	/**Time until next person can be added*/
 	private int numOfTicksNextPerson;
@@ -37,11 +37,11 @@ public class PersonProducer implements ClockListener {
 	 * @param numOfTicksNextPerson
 	 * @param averageEateryTime
 	 **************************************************************/
-	public PersonProducer(Eatery eatery, int numOfTicksNextPerson,
+	public PersonProducer(Eatery eatery[], int numOfTicksNextPerson,
 			int averageEateryTime, int averageCashierTime,
 			int averageLeaveTime) {
 
-		this.eatery1 = eatery;
+		this.eateryA = eatery;
 		this.numOfTicksNextPerson = numOfTicksNextPerson;
 		this.averageEateryTime = averageEateryTime;
 		this.averageLeaveTime = averageLeaveTime;
@@ -95,8 +95,41 @@ public class PersonProducer implements ClockListener {
 					+ averageLeaveTime + .5)); 
 		
 			//add person to eatery
-			eatery1.add(person);
+			int x=addPerson();
+			eateryA[x].add(person);
 		}
+	}
+	/**************************************************************
+	 * Method to determine what eatery to add person to
+	 *
+	 **************************************************************/
+	private int addPerson(){
+		//random number from 0 to 100
+		int randNumber = (int)(Math.random() * 100);
+		//length of eatery array(number of eateries)
+		int num=eateryA.length;
+		//dummy counter
+		int counter=0;
+		//creates range of probabilty 
+		int probability=100/(num);
+		//creates a temp variable of last value
+		int last =0;
+		//goes through all ranges
+		while(num>counter){
+		//creates a range the random number could fall within
+		if(randNumber<(probability+last)&&randNumber>last){
+			//returns what number eatery
+			return counter;
+		}
+		else {
+			//increase the temp variable 
+			last=last+probability;
+			//increase array position
+			counter=counter+1;
+		}
+		}
+		//if ranges fail, send people to first eatery
+		return 0;
 	}
 	
 }
