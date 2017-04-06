@@ -2,9 +2,6 @@ package KirkhofSimulatorPack.GUI;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-
-import game1024.gamePanel.ButtonListener;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
