@@ -7,7 +7,10 @@ import java.util.ArrayList;
 
 
 public class MainQueue implements ClockListener {
-	
+
+	/** Arraylist that represents checkouts with an int that is dependent on
+	 * the checkout is busy
+	 */
 	private ArrayList<Integer> checkouts = new ArrayList<>();
 
 	/** the max amount of people that can be in the queue */
@@ -95,6 +98,10 @@ public class MainQueue implements ClockListener {
 		this.timeOfNextEvent = timeOfNextEvent;
 	}
 
+	/**************************************************************
+	 * Adds checkouts to simulation
+	 * @param num The number of checkouts
+	 **************************************************************/
 	public void addCheckouts(int num) {
 		for(int i = 0; i < num; i++) {
 			checkouts.add(0, i);
