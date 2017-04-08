@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**************************************************************
  * Class that simulates one place to get food. Add person to 
  * eatery and then moves to main Q
- * @author 
+ * @author Chad, Jessica, Preston, Alex
  * @version 3/27/17
  **************************************************************/
 public class Eatery implements ClockListener {
@@ -24,7 +24,21 @@ public class Eatery implements ClockListener {
 	
 	/**The number of people who have gone through eatery*/
 	private int completed = 0;
-	
+
+	/**Variable to represent Main Queue linked list*/
+	private final MainQueue mainList;
+
+	/**number of people who have lef at this eatery*/
+	private int totalPeopleLeft = 0;
+
+	/**
+	 * Constructor for Eatery
+	 * @param mainLinkedList Reference to the Main Queue class
+	 */
+	public Eatery(MainQueue mainLinkedList){
+		this.mainList = mainLinkedList;
+	}
+
 	/**************************************************************
 	 * Method to add people to eateries
 	 * @param person The person to be added to the eatery 
@@ -40,12 +54,20 @@ public class Eatery implements ClockListener {
 	 * @param tick The current time of the clock
 	 **************************************************************/
 	public void event(int tick) {
-		//if (tick >= timeOfNextEvent) {
-			// if (person != null) { // Notice the delay that takes place here
-			 //person.getDestination().add(person); // take this person to the
-			 //next station.
-			 //person = null; // I have send the person on.
-			 //}
+
+		if (tick >= timeOfNextEvent) {
+
+			if(person.getLeaveTime() >= tick){
+				//if the person exceeds waiting time, remove from simulation
+				Q.remove(person);
+				totalPeopleLeft++;
+			}
+
+
+			 if (person != null) { // Notice the delay that takes place here
+			 mainList.add(person); // take this person to the next station.
+			 person = null; // I have send the person on.
+			 }
 
 			if (Q.size() >= 1) {
 				person = Q.remove(0); // do not send this person as of yet, make
@@ -62,7 +84,7 @@ public class Eatery implements ClockListener {
 				completed++;
 			}
 		}
-	//}
+	}
 	/**************************************************************
 	 * The amount of people still in line
 	 * 
@@ -89,5 +111,13 @@ public class Eatery implements ClockListener {
 	 **************************************************************/
 	public int getThroughPut() {
 		return completed;
+	}
+
+	/**
+	 * getter for total people who have left
+	 * @return totalPeopleLeft number of people who have left at this eatery
+	 */
+	public int getTotalPeopleLeft() {
+		return totalPeopleLeft;
 	}
 }
