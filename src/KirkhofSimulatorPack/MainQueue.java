@@ -22,6 +22,12 @@ public class MainQueue implements ClockListener {
 	/** The current amount of clock ticks - when this equals timeOfNextEvent,
 	 * it gets reset to the next person in line's time */
 	private int currentAmountOfTicks;
+
+	/**Variable to hold how many people left the sim*/
+	private int totalPeopleLeft = 0;
+
+	/**Number of people who have gone through the main queue */
+	private int totalCompleted = 0;
 	
 	/** the Queue of people */
 	private final CustomLinkedList<Person> QUEUE;
@@ -44,7 +50,7 @@ public class MainQueue implements ClockListener {
 	 * De-queue method / remove a person from the line
 	 * @return the person that was at the front of the line
 	 ****************************************/
-	public Person removePerson() {
+	private Person removePerson() {
 		return QUEUE.removeFirst();
 	}
 	
@@ -58,9 +64,42 @@ public class MainQueue implements ClockListener {
 	 ****************************************/
 	@Override
 	public void event(int tick) {
-		if (tick == getTimeOfNextEvent()) {
-			// probably need to remove a person? idk what we do here for the queue
-		} else this.currentAmountOfTicks++;
+
+		if (tick >= timeOfNextEvent) {
+
+			Person person = getNextPerson();
+
+			if(person.getLeaveTime() >= tick){
+				//if the person exceeds waiting time, remove from simulation
+				QUEUE.remove(person);
+				totalPeopleLeft++;
+			}
+
+
+			if (person != null) { // Notice the delay that takes place here
+				 // take this person to the checkout
+				person = null; // I have send the person on.
+			}
+
+			if () { //if the size of the QUEUE is greater than 0
+				// do not send this person as of yet, make
+				// them wait.
+
+				//person leaves this queue
+
+				// this is where you would send on the person to the next
+				// listener.
+				totalCompleted++; //increase total completed
+			}
+		}
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	private Person getNextPerson(){
+		return QUEUE.getLast(); //return last person in line
 	}
 	
 	/*****************************************
