@@ -11,7 +11,7 @@ import java.util.ArrayList;
  **************************************************************/
 public class Eatery implements ClockListener {
 	/**The line for the eatery*/
-	private ArrayList<Person> Q = new ArrayList<Person>();  
+	private ArrayList<Person> Q = new ArrayList<>();
 	
 	/**The next time in which a person is added*/
 	private int timeOfNextEvent = 0;
