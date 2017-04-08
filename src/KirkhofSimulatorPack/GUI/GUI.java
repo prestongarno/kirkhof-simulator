@@ -42,6 +42,12 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 	/**Button to remove eateries */
 	private JButton removeEatery;
 
+	/**Button to remove checkout */
+    private JButton removeCheckout;
+
+	/**Button to remove checkouts */
+    private JButton addCheckout;
+
     public GUI(){
         panel = new JPanel();
         
@@ -62,15 +68,24 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
      	//Left Panel Elements
      	addEatery = new JButton("Add Eatery");
      	removeEatery= new JButton("Remove Eatery");
+     	addCheckout = new JButton("Add Checkout");
+     	removeCheckout = new JButton("Remove Checkout");
      	
      	//Left Panel Action Listeners
-     	//addEatery.addActionListener();
-     	//removeEatery.addActionListener();
-     	
+     	addEatery.addActionListener(this);
+     	removeEatery.addActionListener(this);
+     	addCheckout.addActionListener(this);
+     	removeCheckout.addActionListener(this);
+
      	//Add elements to left panel
         // Use of rigid area to create spacing between elements
      	panelLeft.add(addEatery);
+     	panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
      	panelLeft.add(removeEatery);
+        panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
+        panelLeft.add(addCheckout);
+        panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
+        panelLeft.add(removeCheckout);
      	
 		// creation of right panel
 		// Displays stats of simulation
@@ -97,7 +112,25 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 
     
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == addEatery){
+            try {
+                //add an eatery
+            }
+            catch(Exception exception){
 
+            }
+        }
+
+        if(e.getSource() == removeEatery){
+            try {
+                //remove an eatery
+            }
+            catch(Exception exception){
+
+            }
+        }
+
+        //TODO add more buttons and listeners
 
     }
     
