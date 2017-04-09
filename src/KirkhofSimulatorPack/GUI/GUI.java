@@ -47,6 +47,30 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 
 	/**Button to remove checkouts */
     private JButton addCheckout;
+    
+    /**Total number of people who completed Simulation**/
+    private JLabel numCompleted;
+    
+    /**Number of Special needs people to complete sim*/
+    private JLabel  numCompleteSpecial;
+    
+    /**Number of Regular people to complete sim*/
+    private JLabel  numCompleteReg;
+    
+    /**Number of Limitied time people to complete sim*/
+    private JLabel  numCompleteLimited;
+    
+    /**Average Time for speical needs to complete sim*/
+    private JLabel  averageTimeCompleteSpecial;
+    
+    /**Average Time for regualar people to complete sim*/
+    private JLabel  averageTimeCompleteReg;
+    
+    /**Average time for limited time people to complete sim*/
+    private JLabel  averageTimeCompleteLimited;
+    
+    /**Average time for people to go through Eatery 1*/
+    private JLabel  averageTimeCompleteEatery1;
 
     public GUI(){
         panel = new JPanel();
@@ -99,6 +123,16 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 		panelDown = new JPanel();
 		panelDown.setLayout(new FlowLayout());
 
+//		numCompleted
+//	    numCompleteSpecial
+//	    numCompleteReg
+//	    numCompleteLimited
+//	    averageTimeCompleteSpecial
+//	    averageTimeCompleteReg
+//	    averageTimeCompleteLimited
+//	    averageTimeCompleteEatery1
+		
+		
 		// Add all panels to main panel
 		panel.add(panelUp, BorderLayout.NORTH);
 		panel.add(panelDown, BorderLayout.SOUTH);
