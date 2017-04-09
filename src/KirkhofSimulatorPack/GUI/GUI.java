@@ -41,6 +41,12 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 	
 	/**Button to remove eateries */
 	private JButton removeEatery;
+	
+	/**Button to start simulation*/
+	private JButton startButton;
+	
+	/**Button to stop simulation*/
+	private JButton stopButton;
 
 	/**Button to remove checkout */
     private JButton removeCheckout;
@@ -71,7 +77,18 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
     
     /**Average time for people to go through Eatery 1*/
     private JLabel  averageTimeCompleteEatery1;
+    
+    /**Total amount of people who left sim without completion*/
+    private JLabel numCustomersLost;
+    
+    /**Total amount of people to entered simulation*/
+    private JLabel totalPeople;
+    
+    
 
+/**********************************************************************
+ * Application of GUI Panels for buttons and stats
+ *********************************************************************/
     public GUI(){
         panel = new JPanel();
         
@@ -94,12 +111,16 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
      	removeEatery= new JButton("Remove Eatery");
      	addCheckout = new JButton("Add Checkout");
      	removeCheckout = new JButton("Remove Checkout");
+     	startButton = new JButton("Start");
+     	stopButton = new JButton("Stop");
      	
      	//Left Panel Action Listeners
      	addEatery.addActionListener(this);
      	removeEatery.addActionListener(this);
      	addCheckout.addActionListener(this);
      	removeCheckout.addActionListener(this);
+     	startButton.addActionListener(this);
+     	stopButton.addActionListener(this);
 
      	//Add elements to left panel
         // Use of rigid area to create spacing between elements
@@ -110,6 +131,10 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
         panelLeft.add(addCheckout);
         panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
         panelLeft.add(removeCheckout);
+        panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
+        panelLeft.add(startButton);
+        panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
+        panelLeft.add(stopButton);
      	
 		// creation of right panel
 		// Displays stats of simulation
@@ -126,6 +151,8 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 	    averageTimeCompleteReg= new JLabel("Average Time Regular People Completion: ");
 	    averageTimeCompleteLimited= new JLabel("Average Time Limited Time People Completion: ");
 	    averageTimeCompleteEatery1= new JLabel("Average Time to go Through Eatery 1: ");
+	    numCustomersLost= new JLabel("Number of Customers Lost: ");
+	    totalPeople= new JLabel("Total Number of Customers: ");
 	    
 	    //Add Elements to Right Panel
 	    panelRight.add(numCompleted);
@@ -136,15 +163,14 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 	    panelRight.add(averageTimeCompleteReg);
 	    panelRight.add(averageTimeCompleteLimited);
 	    panelRight.add(averageTimeCompleteEatery1);
+		panelRight.add(numCustomersLost);
+		panelRight.add(totalPeople);
 		
 		// Up and Down panel Creation
 		panelUp = new JPanel();
 		panelUp.setLayout(new FlowLayout());
 		panelDown = new JPanel();
 		panelDown.setLayout(new FlowLayout());
-
-
-		
 		
 		// Add all panels to main panel
 		panel.add(panelUp, BorderLayout.NORTH);
@@ -157,14 +183,17 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
     }
 
 
-    
+ /**********************************************************************
+  * Action perform statements for buttons
+  *********************************************************************/
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == addEatery){
             try {
                 //add an eatery
             }
             catch(Exception exception){
-
+            	JOptionPane.showMessageDialog(null, "Maximum"
+						+ "number of Eateries reached.");
             }
         }
 
@@ -173,26 +202,60 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
                 //remove an eatery
             }
             catch(Exception exception){
-
+            	JOptionPane.showMessageDialog(null, "1 Eatery"
+						+ "must always be present");
             }
         }
+        
+        if(e.getSource()==addCheckout){
+        	  try {
+                  //add a checkout
+              }
+              catch(Exception exception){
+              	JOptionPane.showMessageDialog(null, "Maximum"
+  						+ "number of checkouts reached.");
+              }
+        }
+        
+        if(e.getSource()==removeCheckout){
+        	   try {
+                   //remove a checkout
+               }
+               catch(Exception exception){
+               	JOptionPane.showMessageDialog(null, "1 checkout"
+   						+ "must always be present");
+               }
+        }
+        
+        if(e.getSource()==startButton){
+        	
+        }
+        
+        if(e.getSource()==stopButton){
+        	
+        }
 
-        //TODO add more buttons and listeners
 
     }
     
     
-    @Override
+/**********************************************************************
+ * Action performed if key is typed
+ *********************************************************************/
     public void keyTyped(KeyEvent e) {
 
     }
 
-    @Override
+ /**********************************************************************
+  * Action performed if key is pressed
+  *********************************************************************/
     public void keyPressed(KeyEvent e) {
 
     }
 
-    @Override
+/**********************************************************************
+ * Action performed if key is released
+ *********************************************************************/
     public void keyReleased(KeyEvent e) {
 
     }
