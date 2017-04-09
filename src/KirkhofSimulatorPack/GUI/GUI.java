@@ -117,20 +117,33 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 		panelRight
 		.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
 
+		//Right Panel Elements
+		numCompleted = new JLabel("Number of People Completed: ");
+	    numCompleteSpecial= new JLabel("Number of Special People Completed: ");
+	    numCompleteReg= new JLabel("Number of Regular People Completed: ");
+	    numCompleteLimited= new JLabel("Number of Limited Time People Completed: ");
+	    averageTimeCompleteSpecial= new JLabel("Average Time Speical People for Completion: ");
+	    averageTimeCompleteReg= new JLabel("Average Time Regular People Completion: ");
+	    averageTimeCompleteLimited= new JLabel("Average Time Limited Time People Completion: ");
+	    averageTimeCompleteEatery1= new JLabel("Average Time to go Through Eatery 1: ");
+	    
+	    //Add Elements to Right Panel
+	    panelRight.add(numCompleted);
+	    panelRight.add(numCompleteSpecial);
+	    panelRight.add(numCompleteReg);
+	    panelRight.add(numCompleteLimited);
+	    panelRight.add(averageTimeCompleteSpecial);
+	    panelRight.add(averageTimeCompleteReg);
+	    panelRight.add(averageTimeCompleteLimited);
+	    panelRight.add(averageTimeCompleteEatery1);
+		
 		// Up and Down panel Creation
 		panelUp = new JPanel();
 		panelUp.setLayout(new FlowLayout());
 		panelDown = new JPanel();
 		panelDown.setLayout(new FlowLayout());
 
-//		numCompleted
-//	    numCompleteSpecial
-//	    numCompleteReg
-//	    numCompleteLimited
-//	    averageTimeCompleteSpecial
-//	    averageTimeCompleteReg
-//	    averageTimeCompleteLimited
-//	    averageTimeCompleteEatery1
+
 		
 		
 		// Add all panels to main panel
