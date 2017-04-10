@@ -63,13 +63,13 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
     /**Number of Regular people to complete sim*/
     private JLabel  numCompleteReg;
     
-    /**Number of Limitied time people to complete sim*/
+    /**Number of Limited time people to complete sim*/
     private JLabel  numCompleteLimited;
     
-    /**Average Time for speical needs to complete sim*/
+    /**Average Time for special needs to complete sim*/
     private JLabel  averageTimeCompleteSpecial;
     
-    /**Average Time for regualar people to complete sim*/
+    /**Average Time for regular people to complete sim*/
     private JLabel  averageTimeCompleteReg;
     
     /**Average time for limited time people to complete sim*/
