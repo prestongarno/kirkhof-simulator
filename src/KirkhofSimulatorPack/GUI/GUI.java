@@ -252,13 +252,13 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
         
         if(e.getSource()==updateInfo){
         	clk.stopClock();
-        	if(avgEatTime.getText().isEmpty()!=true)
+        	if(!avgEatTime.getText().isEmpty())
         		averageEateryTime=Integer.parseInt(avgEatTime.getText());
-        	if(avgLeaveTime.getText().isEmpty()!=true)
+        	if(!avgLeaveTime.getText().isEmpty())
         		averageLeaveTime=Integer.parseInt(avgLeaveTime.getText());
-        	if(avgCashTime.getText().isEmpty()!=true)
+        	if(!avgCashTime.getText().isEmpty())
         		averageCashierTime=Integer.parseInt(avgCashTime.getText());
-        	if(numTicksNext.getText().isEmpty()!=true)
+        	if(!numTicksNext.getText().isEmpty())
         		numOfTicksNextPerson=Integer.parseInt(numTicksNext.getText());
         	PersonProducer newSim = new PersonProducer(eateryArray,
     				numOfTicksNextPerson, averageEateryTime,

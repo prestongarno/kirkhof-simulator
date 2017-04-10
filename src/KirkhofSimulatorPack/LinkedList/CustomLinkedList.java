@@ -1,6 +1,11 @@
 package KirkhofSimulatorPack.LinkedList;
 
 
+import KirkhofSimulatorPack.Person;
+
+import java.util.*;
+
+
 /** **************************************************
  * kirkhof-simulator - KirkhofSimulatorPack.LinkedList - by Preston Garno on 3/27/17
  *
@@ -121,7 +126,9 @@ public class CustomLinkedList<T> {
 		
 		return temp.get();
 	}
-
+	
+	
+	
 	public T removeLast() {
 		Entry<T> last = getLast();
 		this.remove(last.get());
@@ -133,6 +140,43 @@ public class CustomLinkedList<T> {
 	 ****************************************/
 	public int size() {
 		return this.size;
+	}
+	
+	public boolean isEmpty() {
+		return size == 0;
+	}
+	
+	public boolean contains(Object o) {
+		Entry<T> temp = head;
+		
+		while (temp != null) {
+			if (o.equals(temp.get())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Iterator<T> iterator() {
+		return new Iterator<T>() {
+			
+			Entry<T> next = head;
+			
+			@Override
+			public boolean hasNext() {
+				return next == null;
+			}
+			
+			@Override
+			public T next() {
+				T temp = null;
+				if(next != null) {
+					 temp =  next.get();
+					 next = next.getNext();
+				}
+				return temp;
+			}
+		};
 	}
 	
 	/*****************************************

@@ -33,4 +33,8 @@ public class Checkout<K extends Person> implements ClockListener {
             this.person = null;
         }
     }
+    
+    public K getPerson() {
+        return person;
+    }
 }

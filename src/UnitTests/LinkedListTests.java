@@ -1,5 +1,6 @@
 package UnitTests;
 
+import KirkhofSimulatorPack.GUI.Util;
 import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
 import org.junit.Before;
 import org.junit.Test;

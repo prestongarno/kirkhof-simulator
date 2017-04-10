@@ -1,5 +1,10 @@
 package KirkhofSimulatorPack;
 
+import KirkhofSimulatorPack.GUI.Util;
+
+import javax.swing.*;
+
+
 /**************************************************************
  *  Special Needs people specifications
  * @author
@@ -24,7 +29,13 @@ public class SpecialNeedsPerson extends Person {
     public void setCashierTime(double time) {
         super.setCashierTime(time*2);
     }
- /**************************************************************
+   
+   @Override
+   public Icon getIconRepresentation() {
+      return Util.SPECIAL_NEEDS_PERSON;
+   }
+   
+   /**************************************************************
   *  Method to set leave time to be 2 times as much as a 
   *  regular person
   * @param time average leave time

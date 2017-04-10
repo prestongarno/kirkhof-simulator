@@ -78,7 +78,7 @@ public class MainQueue implements ClockListener {
 	 */
 	private Person getNextPerson(){
 		//TODO: fix getLast() method in the linked list
-		return QUEUE.getLast(); //return last person in line
+		return QUEUE.removeLast(); //return last person in line
 	}
 	
 	/*****************************************
@@ -116,4 +116,7 @@ public class MainQueue implements ClockListener {
 		this.timeOfNextEvent = timeOfNextEvent;
 	}
 
+	public CustomLinkedList<Person> getPeople() {
+		return QUEUE;
+	}
 }
