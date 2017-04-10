@@ -4,14 +4,10 @@ package KirkhofSimulatorPack;
 import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainQueue implements ClockListener {
-
-	/** Arraylist that represents checkouts with an int that is dependent on
-	 * the checkout is busy
-	 */
-	private ArrayList<Integer> checkouts = new ArrayList<>();
 
 	/** the max amount of people that can be in the queue */
 	private int maxQlength;
@@ -31,12 +27,16 @@ public class MainQueue implements ClockListener {
 	
 	/** the Queue of people */
 	private final CustomLinkedList<Person> QUEUE;
+
+	/**Variable to represent checkout line*/
+	private final List<Checkout> checkouts;
 	
 	/*****************************************
 	 * Create a queue with initial size 0
 	 ****************************************/
 	public MainQueue() {
 		QUEUE = new CustomLinkedList<>();
+		checkouts = new ArrayList<>();
 	}
 	
 	/*****************************************
@@ -44,14 +44,6 @@ public class MainQueue implements ClockListener {
 	 ****************************************/
 	public void add(Person person) {
 		this.QUEUE.add(person);
-	}
-	
-	/*****************************************
-	 * De-queue method / remove a person from the line
-	 * @return the person that was at the front of the line
-	 ****************************************/
-	private Person removePerson() {
-		return QUEUE.removeFirst();
 	}
 	
 	/*****************************************
@@ -64,41 +56,28 @@ public class MainQueue implements ClockListener {
 	 ****************************************/
 	@Override
 	public void event(int tick) {
-
-		if (tick >= timeOfNextEvent) {
-
-			Person person = getNextPerson();
-
-			if(person.getLeaveTime() >= tick){
-				//if the person exceeds waiting time, remove from simulation
-				QUEUE.remove(person);
-				totalPeopleLeft++;
+		for(Checkout checkout : this.checkouts) {
+			if(checkout.isOpen()) {
+				checkout.setPerson(this.QUEUE.removeLast());
 			}
+		}
 
-
-			if (person != null) { // Notice the delay that takes place here
-				 // take this person to the checkout
-				person = null; // I have send the person on.
-			}
-
-			if () { //if the size of the QUEUE is greater than 0
-				// do not send this person as of yet, make
-				// them wait.
-
-				//person leaves this queue
-
-				// this is where you would send on the person to the next
-				// listener.
-				totalCompleted++; //increase total completed
+		Person p;
+		for (int i = 0; i < QUEUE.size(); i++) {
+			p = QUEUE.get(i);
+			if(p.getLeaveTime() >= tick - p.getTickTime()) {
+				QUEUE.remove(p);
 			}
 		}
 	}
+
 
 	/**
 	 *
 	 * @return
 	 */
 	private Person getNextPerson(){
+		//TODO: fix getLast() method in the linked list
 		return QUEUE.getLast(); //return last person in line
 	}
 	
@@ -137,13 +116,4 @@ public class MainQueue implements ClockListener {
 		this.timeOfNextEvent = timeOfNextEvent;
 	}
 
-	/**************************************************************
-	 * Adds checkouts to simulation
-	 * @param num The number of checkouts
-	 **************************************************************/
-	public void addCheckouts(int num) {
-		for(int i = 0; i < num; i++) {
-			checkouts.add(0, i);
-		}
-	}
 }

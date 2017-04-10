@@ -97,6 +97,7 @@ public class PersonProducer implements ClockListener {
 			//add person to eatery
 			int x=addPerson();
 			eateryA[x].add(person);
+			person.setTickTime(tick);
 		}
 	}
 	/**************************************************************

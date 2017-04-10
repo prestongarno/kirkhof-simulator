@@ -1,7 +1,5 @@
 package KirkhofSimulatorPack.LinkedList;
 
-import KirkhofSimulatorPack.ClockListener;
-
 
 /** **************************************************
  * kirkhof-simulator - KirkhofSimulatorPack.LinkedList - by Preston Garno on 3/27/17
@@ -27,7 +25,7 @@ public class CustomLinkedList<T> {
 		if (head == null) { // case: empty list
 			head = new Entry<>(t, null);
 		} else {
-			Entry<T> tail = getTail();
+			Entry<T> tail = getLast();
 			
 			if(tail == null) {
 				head.setNext(new Entry<>(t, null));
@@ -57,7 +55,7 @@ public class CustomLinkedList<T> {
 		
 		if(head == null) { head = entry; }
 		
-		else getTail().setNext(entry);
+		else getLast().setNext(entry);
 	}
 	
 	/*****************************************
@@ -123,7 +121,13 @@ public class CustomLinkedList<T> {
 		
 		return temp.get();
 	}
-	
+
+	public T removeLast() {
+		Entry<T> last = getLast();
+		this.remove(last.get());
+		return last.get();
+	}
+
 	/*****************************************
 	 * @return amount of items in a list
 	 ****************************************/
@@ -134,7 +138,7 @@ public class CustomLinkedList<T> {
 	/*****************************************
 	 * @return the last item on the list
 	 ****************************************/
-	private Entry<T> getTail() {
+	public Entry<T> getLast() {
 		
 		//this shouldn't happen
 		if (head == null) throw new IndexOutOfBoundsException("No items in list");
@@ -162,7 +166,7 @@ public class CustomLinkedList<T> {
 			head = new Entry<>(items[0], null);
 		}
 		
-		Entry<T> temp = this.getTail();
+		Entry<T> temp = this.getLast();
 		
 		for (T t : items) {
 			if (t != null) {

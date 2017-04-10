@@ -26,6 +26,7 @@ public class Eatery implements ClockListener {
 	private int completed = 0;
 	
 	private String name;
+
 	/**Variable to represent Main Queue linked list*/
 	private final MainQueue mainList;
 
@@ -85,7 +86,7 @@ public class Eatery implements ClockListener {
 
 		if (tick >= timeOfNextEvent) {
 
-			if(person.getLeaveTime() >= tick){
+			if(person.getLeaveTime() >= tick - person.getTickTime()){
 				//if the person exceeds waiting time, remove from simulation
 				Q.remove(person);
 				totalPeopleLeft++;

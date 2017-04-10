@@ -5,39 +5,32 @@ import java.lang.*;
 /**
  * Created by Chad on 4/8/2017.
  */
-public class Checkout {
+public class Checkout<K extends Person> implements ClockListener {
     //add constructor here, this class should be stupid
     //it can't see into the main queue
     //just holds a value 0 for empty and 1 for a person in checkout
 
-    private int[] checkoutLine;
-    private int numCheckouts = 2;
+    int timeOfNextEvent;
+
+    K person;
 
     public Checkout(){
-        checkoutLine = new int[numCheckouts];
     }
 
-    public void addPerson(int checkoutNumber){
-        checkoutLine[checkoutNumber] = 1;
+    public void setPerson(K person) {
+        if(person != null) throw new IllegalArgumentException();
+        this.person = person;
+        timeOfNextEvent += person.getCashierTime();
     }
 
-    public void removePerson(int checkoutNum){
-        checkoutLine[checkoutNum] = 0;
+    public boolean isOpen() {
+        return this.person == null;
     }
 
-    public void setNumCheckouts(int num){
-        this.numCheckouts = num;
-    }
-
-    public int getNumCheckouts(){
-        return this.numCheckouts;
-    }
-
-    public int[] getCheckout(){
-        return checkoutLine;
-    }
-
-    public int getCheckout(int checkoutNum){
-        return checkoutLine[checkoutNum];
+    @Override
+    public void event(int tick) {
+        if(tick >= timeOfNextEvent) {
+            this.person = null;
+        }
     }
 }
