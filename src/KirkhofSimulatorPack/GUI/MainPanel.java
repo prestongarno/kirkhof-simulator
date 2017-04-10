@@ -11,7 +11,7 @@ import java.util.List;
 
 
 /************************************
- * Created by preston on 4/8/17.
+ * Created by preston
  ****************************************/
 // TODO: 4/10/17 Add toggle buttons for the eateries and the checkouts
 public class MainPanel extends JPanel {

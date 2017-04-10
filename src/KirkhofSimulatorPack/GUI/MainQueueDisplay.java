@@ -9,7 +9,7 @@ import java.util.List;
 
 
 /** **************************************************
- * kirkhof-simulator - KirkhofSimulatorPack.GUI - by Preston Garno on 4/10/17
+ * kirkhof-simulator - KirkhofSimulatorPack.GUI - by Preston Garno
  * ***************************************************/
 public class MainQueueDisplay extends JPanel {
 	
