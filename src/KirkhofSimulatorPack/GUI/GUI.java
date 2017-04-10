@@ -89,7 +89,26 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
     /**Total amount of people to entered simulation*/
     private JLabel totalPeople;
     
-    public Clock clk=new Clock();
+    /**Input for average eatery time*/
+    private JTextField avgEatTime;
+    
+    /**Input for average cashiertime*/
+    private JTextField avgCashTime;
+    
+    /**Input for average leave time*/
+    private JTextField avgLeaveTime;
+    
+    /**Input for time until next person added*/
+    private JTextField numTicksNext;
+    
+    /**Button to update input*/
+    private JButton updateInfo;
+    
+    /**Creation of clock*/
+    private Clock clk=new Clock();
+    
+    /**Creation of array of eateries*/
+    private Eatery eateryArray[];
     
 
 
@@ -130,16 +149,31 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
      	//Left Panel Elements
      	startButton = new JButton("Start");
      	stopButton = new JButton("Stop");
+     	avgEatTime=new JTextField();
+     	avgLeaveTime=new JTextField();
+     	avgCashTime=new JTextField();
+     	numTicksNext=new JTextField();
+     	updateInfo=new JButton("Update Info");
      	
      	//Left Panel Action Listeners
      	startButton.addActionListener(this);
      	stopButton.addActionListener(this);
-
+     	updateInfo.addActionListener(this);
+     	
      	//Add elements to left panel
         // Use of rigid area to create spacing between elements
         panelLeft.add(startButton);
         panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
         panelLeft.add(stopButton);
+        panelLeft.add(new JLabel("Average Eatery Time"));
+        panelLeft.add(avgEatTime);
+        panelLeft.add(new JLabel("Average Leave Time"));
+        panelLeft.add(avgLeaveTime);
+        panelLeft.add(new JLabel("Average Cash Time"));
+        panelLeft.add(avgCashTime);
+        panelLeft.add(new JLabel("Time Until Next Person"));
+        panelLeft.add(numTicksNext);
+        panelLeft.add(updateInfo);
      	
 		// creation of right panel
 		// Displays stats of simulation
@@ -215,7 +249,22 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
         if(e.getSource()==stopButton){
         	clk.stopClock();
         }
-
+        
+        if(e.getSource()==updateInfo){
+        	clk.stopClock();
+        	if(avgEatTime.getText().isEmpty()!=true)
+        		averageEateryTime=Integer.parseInt(avgEatTime.getText());
+        	if(avgLeaveTime.getText().isEmpty()!=true)
+        		averageLeaveTime=Integer.parseInt(avgLeaveTime.getText());
+        	if(avgCashTime.getText().isEmpty()!=true)
+        		averageCashierTime=Integer.parseInt(avgCashTime.getText());
+        	if(numTicksNext.getText().isEmpty()!=true)
+        		numOfTicksNextPerson=Integer.parseInt(numTicksNext.getText());
+        	PersonProducer newSim = new PersonProducer(eateryArray,
+    				numOfTicksNextPerson, averageEateryTime,
+    				averageCashierTime, averageLeaveTime);
+    		clk.add(newSim);
+        }
 
     }
     
