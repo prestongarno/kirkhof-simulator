@@ -11,18 +11,35 @@ import java.util.ArrayList;
 import java.util.*;
 import java.io.*;
 import java.text.*;
-
+import KirkhofSimulatorPack.*;
 /**
- * Created by Alex on 4/2/2017.
- * Added beginning elements and structure Jessica on 4/5
+ *
  */
 public class GUI extends JFrame implements KeyListener, ActionListener  {
 
+	/**Number of initial eateries*/
+	private int numEateries=4;
+	
+	/**Max number of eateries */
+	private int maxEateries=5;
+	
+	/**Average eatery time*/
+	private int averageEateryTime=20;
+	
+	/**Average Cashier time*/
+	private int averageCashierTime=20;
+	
+	/**Average Leave time*/
+	private int averageLeaveTime=20;
+	
+	/**time until next person is added*/
+	private int numOfTicksNextPerson=20;
+	
     /**panel for the GUI elements to be placed on*/
-    JPanel panel;
+    private JPanel panel;
 
     /**panel to use for the main program graphics */
-    JPanel centerPanel;
+    private JPanel centerPanel;
     
     /** Panel contains game functions */
 	private JPanel panelLeft;
@@ -36,23 +53,11 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 	/** Panel on bottom */
 	private JPanel panelDown;
 	
-	/**Button to add eateries */
-	private JButton addEatery;
-	
-	/**Button to remove eateries */
-	private JButton removeEatery;
-	
 	/**Button to start simulation*/
 	private JButton startButton;
 	
 	/**Button to stop simulation*/
 	private JButton stopButton;
-
-	/**Button to remove checkout */
-    private JButton removeCheckout;
-
-	/**Button to remove checkouts */
-    private JButton addCheckout;
     
     /**Total number of people who completed Simulation**/
     private JLabel numCompleted;
@@ -84,22 +89,38 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
     /**Total amount of people to entered simulation*/
     private JLabel totalPeople;
     
+    public Clock clk=new Clock();
     
+
 
 /**********************************************************************
  * Application of GUI Panels for buttons and stats
  *********************************************************************/
     public GUI(){
-        panel = new JPanel();
-        
-        panel.setLayout(new BorderLayout());
-        panel.setVisible(true);
-        panel.setFocusable(true);
-       
-     	// creation of Center Panel
-     	//Center panel runs simulation
-     	centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(5,5));
+    	
+    	Clock clk = new Clock();
+    	Eatery eateryArray[]=new Eatery[numEateries];
+		MainQueue mainQ = new MainQueue();
+
+		PersonProducer newSim = new PersonProducer(eateryArray,
+				numOfTicksNextPerson, averageEateryTime,
+				averageCashierTime, averageLeaveTime);
+		clk.add(newSim);
+		for(int i=0; i<numEateries;i++){
+			clk.add(eateryArray[i]);
+		}
+
+		clk.add(mainQ);
+		
+		panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.setVisible(true);
+		panel.setFocusable(true);
+
+		// creation of Center Panel
+		// Center panel runs simulation
+		centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(5, 5));
         
         //creation of left panel
         //Displays buttons text fields
@@ -107,31 +128,15 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
      	panelLeft.setLayout(new BoxLayout(panelLeft, BoxLayout.Y_AXIS));
 
      	//Left Panel Elements
-     	addEatery = new JButton("Add Eatery");
-     	removeEatery= new JButton("Remove Eatery");
-     	addCheckout = new JButton("Add Checkout");
-     	removeCheckout = new JButton("Remove Checkout");
      	startButton = new JButton("Start");
      	stopButton = new JButton("Stop");
      	
      	//Left Panel Action Listeners
-     	addEatery.addActionListener(this);
-     	removeEatery.addActionListener(this);
-     	addCheckout.addActionListener(this);
-     	removeCheckout.addActionListener(this);
      	startButton.addActionListener(this);
      	stopButton.addActionListener(this);
 
      	//Add elements to left panel
         // Use of rigid area to create spacing between elements
-     	panelLeft.add(addEatery);
-     	panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
-     	panelLeft.add(removeEatery);
-        panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
-        panelLeft.add(addCheckout);
-        panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
-        panelLeft.add(removeCheckout);
-        panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
         panelLeft.add(startButton);
         panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
         panelLeft.add(stopButton);
@@ -181,58 +186,34 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 		add(panel);
 
     }
-
+/***********************************************************************
+ * Method that will Update all the stats for sim
+ * @param tick calls event every clock cycle
+ */
+    public void event(int tick){
+    	numCompleted.setText("Number of People Completed: ");
+	    numCompleteSpecial.setText("Number of Special People Completed: ");
+	    numCompleteReg.setText("Number of Regular People Completed: ");
+	    numCompleteLimited.setText("Number of Limited Time People Completed: ");
+	    averageTimeCompleteSpecial.setText("Average Time Speical People for Completion: ");
+	    averageTimeCompleteReg.setText("Average Time Regular People Completion: ");
+	    averageTimeCompleteLimited.setText("Average Time Limited Time People Completion: ");
+	    averageTimeCompleteEatery1.setText("Average Time to go Through Eatery 1: ");
+	    numCustomersLost.setText("Number of Customers Lost: ");
+	    totalPeople.setText("Total Number of Customers: ");
+    }
 
  /**********************************************************************
   * Action perform statements for buttons
   *********************************************************************/
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == addEatery){
-            try {
-                //add an eatery
-            }
-            catch(Exception exception){
-            	JOptionPane.showMessageDialog(null, "Maximum"
-						+ "number of Eateries reached.");
-            }
-        }
-
-        if(e.getSource() == removeEatery){
-            try {
-                //remove an eatery
-            }
-            catch(Exception exception){
-            	JOptionPane.showMessageDialog(null, "1 Eatery"
-						+ "must always be present");
-            }
-        }
-        
-        if(e.getSource()==addCheckout){
-        	  try {
-                  //add a checkout
-              }
-              catch(Exception exception){
-              	JOptionPane.showMessageDialog(null, "Maximum"
-  						+ "number of checkouts reached.");
-              }
-        }
-        
-        if(e.getSource()==removeCheckout){
-        	   try {
-                   //remove a checkout
-               }
-               catch(Exception exception){
-               	JOptionPane.showMessageDialog(null, "1 checkout"
-   						+ "must always be present");
-               }
-        }
-        
+       
         if(e.getSource()==startButton){
-        	
+    		clk.startClock();
         }
         
         if(e.getSource()==stopButton){
-        	
+        	clk.stopClock();
         }
 
 
