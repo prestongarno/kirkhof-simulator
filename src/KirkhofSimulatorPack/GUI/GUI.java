@@ -245,7 +245,7 @@ public class GUI extends JFrame implements ActionListener  {
 	    totalPeople= new JLabel("Total Number of Customers: ");
 	    currentTime= new JLabel("Current Time: ");
 	    currentQlength= new JLabel("Current length of Q: ");
-	    maxQlength.setText= new JLabel("Max length of the Q: ");
+	    maxQlength= new JLabel("Max length of the Q: ");
 	    
 	    //Add Elements to Right Panel
 	    panelRight.add(numCompleted);
