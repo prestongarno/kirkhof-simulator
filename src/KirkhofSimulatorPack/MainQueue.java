@@ -1,6 +1,7 @@
 package KirkhofSimulatorPack;
 
 
+import KirkhofSimulatorPack.Interfaces.Stats;
 import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class MainQueue implements ClockListener {
 	public MainQueue() {
 		QUEUE = new CustomLinkedList<>();
 		checkouts = new ArrayList<>();
+		OBSERVERING = new ArrayList<>();
 	}
 	
 	/*****************************************
@@ -118,5 +120,17 @@ public class MainQueue implements ClockListener {
 
 	public CustomLinkedList<Person> getPeople() {
 		return QUEUE;
+	}
+
+	// observer pattern
+
+	final List<Stats> OBSERVERING;
+
+	public void registerStats(Stats stats) {
+		OBSERVERING.add(stats);
+	}
+
+	public void removeStats(Stats stats) {
+		OBSERVERING.remove(stats);
 	}
 }

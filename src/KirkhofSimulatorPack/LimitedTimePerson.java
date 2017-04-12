@@ -20,7 +20,7 @@ public class LimitedTimePerson extends Person {
     }
    
    @Override
-   Icon getIconRepresentation() {
+   public Icon getIconRepresentation() {
       return Util.RUNNING_PERSON;
    }
    

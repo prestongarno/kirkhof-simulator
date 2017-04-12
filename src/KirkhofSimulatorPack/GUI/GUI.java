@@ -12,13 +12,15 @@ import java.util.*;
 import java.io.*;
 import java.text.*;
 import KirkhofSimulatorPack.*;
+import KirkhofSimulatorPack.Interfaces.Stats;
+
 /**********************************************************************
  * Main application of GUI for food court simulation
  *
  *@author 
  *@version 4/12/17
  *********************************************************************/
-public class GUI extends JFrame implements ActionListener  {
+public class GUI extends JFrame implements ActionListener, Stats {
 
 	/**Number of initial eateries*/
 	private int numEateries=5;
@@ -356,4 +358,23 @@ public class GUI extends JFrame implements ActionListener  {
 		new GUI();
 	}
 
+	@Override
+	public void onNumCompleted(int completed) {
+
+	}
+
+	@Override
+	public void typesOfPeopleCompleted(HashMap<PersonType, Integer> values) {
+
+	}
+
+	@Override
+	public void onAverageTime(int value) {
+
+	}
+
+	@Override
+	public void averageTimeCompletedPerType(HashMap<PersonType, Integer> values) {
+
+	}
 }
