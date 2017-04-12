@@ -4,8 +4,9 @@ import java.util.Random;
 
 
 /**************************************************************
- * 
- * @author
+ * Creates person with specialized times and adds them to an 
+ * eatery.
+ * @author Chad, Jessica, Preston, Alex
  * @version 3/27/17
  **************************************************************/
 public class PersonProducer implements ClockListener {
@@ -32,10 +33,15 @@ public class PersonProducer implements ClockListener {
 	private Random r = new Random();
 	
 	/**************************************************************
+	 * Constructor to create a person and add them to an eatery
 	 * 
-	 * @param eatery
-	 * @param numOfTicksNextPerson
-	 * @param averageEateryTime
+	 * @param eatery array of eatery objects
+	 * @param numOfTicksNextPerson time until next person is added
+	 * @param averageEateryTime the time the person take to get food
+	 * @param averageCashierTime the time the person takes to 
+	 * checkout
+	 * @param averageLeaveTime The time the person is no longer 
+	 * willing to wait in line
 	 **************************************************************/
 	public PersonProducer(Eatery eatery[], int numOfTicksNextPerson,
 			int averageEateryTime, int averageCashierTime,
@@ -52,7 +58,7 @@ public class PersonProducer implements ClockListener {
 	/**************************************************************
 	 * Method called by the clock.
 	 *
-	 * @param tick
+	 * @param tick time of the clock
 	 **************************************************************/
 	public void event(int tick) {
 		if (nextPerson <= tick) {
@@ -102,7 +108,7 @@ public class PersonProducer implements ClockListener {
 	}
 	/**************************************************************
 	 * Method to determine what eatery to add person to
-	 *
+	 * @return Number of eatery the person is sent to
 	 **************************************************************/
 	private int addPerson(){
 		//random number from 0 to 100

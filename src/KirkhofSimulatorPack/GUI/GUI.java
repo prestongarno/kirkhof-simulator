@@ -12,16 +12,16 @@ import java.util.*;
 import java.io.*;
 import java.text.*;
 import KirkhofSimulatorPack.*;
-/**
+/**********************************************************************
+ * Main application of GUI for food court simulation
  *
- */
+ *@author 
+ *@version 4/12/17
+ *********************************************************************/
 public class GUI extends JFrame implements KeyListener, ActionListener  {
 
 	/**Number of initial eateries*/
-	private int numEateries=4;
-	
-	/**Max number of eateries */
-	private int maxEateries=5;
+	private int numEateries=5;
 	
 	/**Average eatery time*/
 	private int averageEateryTime=20;
@@ -83,6 +83,33 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
     /**Average time for people to go through Eatery 1*/
     private JLabel  averageTimeCompleteEatery1;
     
+    /**Average time for people to go through Eatery 2*/
+    private JLabel  averageTimeCompleteEatery2;
+    
+    /**Average time for people to go through Eatery 3*/
+    private JLabel  averageTimeCompleteEatery3;
+    
+    /**Average time for people to go through Eatery 4*/
+    private JLabel  averageTimeCompleteEatery4;
+    
+    /**Average time for people to go through Eatery 5*/
+    private JLabel  averageTimeCompleteEatery5;
+    
+    /**Value for the maximum amount of people in line Eatery1*/
+    private JLabel maxLineEatery1;
+    
+    /**Value for the maximum amount of people in line Eatery2*/
+    private JLabel maxLineEatery2;
+    
+    /**Value for the maximum amount of people in line Eatery3*/
+    private JLabel maxLineEatery3;
+    
+    /**Value for the maximum amount of people in line Eatery4*/
+    private JLabel maxLineEatery4;
+    
+    /**Value for the maximum amount of people in line Eatery5*/
+    private JLabel maxLineEatery5;
+    
     /**Total amount of people who left sim without completion*/
     private JLabel numCustomersLost;
     
@@ -110,6 +137,8 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
     /**Creation of array of eateries*/
     private Eatery eateryArray[];
     
+    /**Current time of the clock*/
+    private JLabel currentTime;
 
 
 /**********************************************************************
@@ -190,8 +219,18 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 	    averageTimeCompleteReg= new JLabel("Average Time Regular People Completion: ");
 	    averageTimeCompleteLimited= new JLabel("Average Time Limited Time People Completion: ");
 	    averageTimeCompleteEatery1= new JLabel("Average Time to go Through Eatery 1: ");
+	    averageTimeCompleteEatery2= new JLabel("Average Time to go Through Eatery 2: ");
+	    averageTimeCompleteEatery3= new JLabel("Average Time to go Through Eatery 3: ");
+	    averageTimeCompleteEatery4= new JLabel("Average Time to go Through Eatery 4: ");
+	    averageTimeCompleteEatery5= new JLabel("Average Time to go Through Eatery 5: ");
+	    maxLineEatery1= new JLabel("Maximum length of line at Eatery 1: ");
+	    maxLineEatery2= new JLabel("Maximum length of line at Eatery 2: ");
+	    maxLineEatery3= new JLabel("Maximum length of line at Eatery 3: ");
+	    maxLineEatery4= new JLabel("Maximum length of line at Eatery 4: ");
+	    maxLineEatery5= new JLabel("Maximum length of line at Eatery 5: ");
 	    numCustomersLost= new JLabel("Number of Customers Lost: ");
 	    totalPeople= new JLabel("Total Number of Customers: ");
+	    currentTime= new JLabel("Current Time: ");
 	    
 	    //Add Elements to Right Panel
 	    panelRight.add(numCompleted);
@@ -202,8 +241,18 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 	    panelRight.add(averageTimeCompleteReg);
 	    panelRight.add(averageTimeCompleteLimited);
 	    panelRight.add(averageTimeCompleteEatery1);
+	    panelRight.add(averageTimeCompleteEatery2);
+	    panelRight.add(averageTimeCompleteEatery3);
+	    panelRight.add(averageTimeCompleteEatery4);
+	    panelRight.add(averageTimeCompleteEatery5);
 		panelRight.add(numCustomersLost);
 		panelRight.add(totalPeople);
+		panelRight.add( maxLineEatery1);
+		panelRight.add( maxLineEatery2);
+		panelRight.add( maxLineEatery3);
+		panelRight.add( maxLineEatery4);
+		panelRight.add( maxLineEatery5);
+		panelRight.add(currentTime);
 		
 		// Up and Down panel Creation
 		panelUp = new JPanel();
@@ -223,7 +272,7 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 /***********************************************************************
  * Method that will Update all the stats for sim
  * @param tick calls event every clock cycle
- */
+ ***********************************************************************/
     public void event(int tick){
     	numCompleted.setText("Number of People Completed: ");
 	    numCompleteSpecial.setText("Number of Special People Completed: ");
@@ -232,10 +281,22 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 	    averageTimeCompleteSpecial.setText("Average Time Speical People for Completion: ");
 	    averageTimeCompleteReg.setText("Average Time Regular People Completion: ");
 	    averageTimeCompleteLimited.setText("Average Time Limited Time People Completion: ");
-	    averageTimeCompleteEatery1.setText("Average Time to go Through Eatery 1: ");
+	    averageTimeCompleteEatery1.setText("Average Time to go Through Eatery 1: "+ eateryArray[0].getAverageEateryTime());
+	    averageTimeCompleteEatery2.setText("Average Time to go Through Eatery 2: "+eateryArray[1].getAverageEateryTime());
+	    averageTimeCompleteEatery3.setText("Average Time to go Through Eatery 3: "+eateryArray[2].getAverageEateryTime());
+	    averageTimeCompleteEatery4.setText("Average Time to go Through Eatery 4: "+eateryArray[3].getAverageEateryTime());
+	    averageTimeCompleteEatery5.setText("Average Time to go Through Eatery 5: "+eateryArray[4].getAverageEateryTime());
+	    maxLineEatery1.setText("Maximum length of line at Eatery 1: "+eateryArray[0].getMaxQlength());
+	    maxLineEatery2.setText("Maximum length of line at Eatery 2: "+eateryArray[1].getMaxQlength());
+	    maxLineEatery3.setText("Maximum length of line at Eatery 3: "+eateryArray[2].getMaxQlength());
+	    maxLineEatery4.setText("Maximum length of line at Eatery 4: "+eateryArray[3].getMaxQlength());
+	    maxLineEatery5.setText("Maximum length of line at Eatery 5: "+eateryArray[4].getMaxQlength());
 	    numCustomersLost.setText("Number of Customers Lost: ");
 	    totalPeople.setText("Total Number of Customers: ");
+	    currentTime.setText("Current Time: "+Integer.toString(clk.getTickCount()));
     }
+    
+ 
 
  /**********************************************************************
   * Action perform statements for buttons
