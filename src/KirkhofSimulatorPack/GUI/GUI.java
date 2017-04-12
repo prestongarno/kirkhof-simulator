@@ -18,10 +18,13 @@ import KirkhofSimulatorPack.*;
  *@author 
  *@version 4/12/17
  *********************************************************************/
-public class GUI extends JFrame implements KeyListener, ActionListener  {
+public class GUI extends JFrame implements ActionListener  {
 
 	/**Number of initial eateries*/
 	private int numEateries=5;
+
+	/**Number of initial checkouts*/
+	private int numCheckouts=5;
 	
 	/**Average eatery time*/
 	private int averageEateryTime=20;
@@ -132,7 +135,7 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
     private JButton updateInfo;
     
     /**Creation of clock*/
-    private Clock clk=new Clock();
+    private Clock clk = new Clock();
     
     /**Creation of array of eateries*/
     private Eatery eateryArray[];
@@ -149,6 +152,7 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
     	Clock clk = new Clock();
     	Eatery eateryArray[]=new Eatery[numEateries];
 		MainQueue mainQ = new MainQueue();
+		Checkout checkoutArray[] = new Checkout[numCheckouts];
 
 		PersonProducer newSim = new PersonProducer(eateryArray,
 				numOfTicksNextPerson, averageEateryTime,
@@ -169,6 +173,9 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
 		// Center panel runs simulation
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(5, 5));
+
+		//TODO need to change eateryArray and checkoutArray to arrays in the MainPanel class or vice versa (but that would be harder)
+		//centerPanel.add(new MainPanel(mainQ, eateryArray, checkoutArray));
         
         //creation of left panel
         //Displays buttons text fields
@@ -328,26 +335,13 @@ public class GUI extends JFrame implements KeyListener, ActionListener  {
         }
 
     }
-    
-    
-/**********************************************************************
- * Action performed if key is typed
- *********************************************************************/
-    public void keyTyped(KeyEvent e) {
 
-    }
+	/**
+	 * Main method to run the program
+	 * @param args
+	 */
+	public static void main(String[] args){
+		new GUI();
+	}
 
- /**********************************************************************
-  * Action performed if key is pressed
-  *********************************************************************/
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-/**********************************************************************
- * Action performed if key is released
- *********************************************************************/
-    public void keyReleased(KeyEvent e) {
-
-    }
 }
