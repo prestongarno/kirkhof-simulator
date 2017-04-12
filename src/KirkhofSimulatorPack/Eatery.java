@@ -156,6 +156,7 @@ public class Eatery implements ClockListener {
 		return Integer.toString(average);
 	}
 	
+	
 	/****************************************************************
 	 * Counter for the number of people going through the eatery
 	 * 

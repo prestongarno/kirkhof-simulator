@@ -142,6 +142,12 @@ public class GUI extends JFrame implements ActionListener  {
     
     /**Current time of the clock*/
     private JLabel currentTime;
+    
+    /** Maximum length of the Q*/
+     private JLabel maxQlength;
+     
+     /**Current length of the Q*/
+     private JLabel currentQlength;
 
 
 /**********************************************************************
@@ -238,6 +244,8 @@ public class GUI extends JFrame implements ActionListener  {
 	    numCustomersLost= new JLabel("Number of Customers Lost: ");
 	    totalPeople= new JLabel("Total Number of Customers: ");
 	    currentTime= new JLabel("Current Time: ");
+	    currentQlength= new JLabel("Current length of Q: ");
+	    maxQlength.setText= new JLabel("Max length of the Q: ");
 	    
 	    //Add Elements to Right Panel
 	    panelRight.add(numCompleted);
@@ -260,6 +268,8 @@ public class GUI extends JFrame implements ActionListener  {
 		panelRight.add( maxLineEatery4);
 		panelRight.add( maxLineEatery5);
 		panelRight.add(currentTime);
+		panelRight.add(currentQlength);
+		panelRight.add(maxQlength);
 		
 		// Up and Down panel Creation
 		panelUp = new JPanel();
@@ -301,6 +311,8 @@ public class GUI extends JFrame implements ActionListener  {
 	    numCustomersLost.setText("Number of Customers Lost: ");
 	    totalPeople.setText("Total Number of Customers: ");
 	    currentTime.setText("Current Time: "+Integer.toString(clk.getTickCount()));
+	    currentQlength.setText("Current length of Q: ");
+	    maxQlength.setText("Max length of the Q: ");
     }
     
  
