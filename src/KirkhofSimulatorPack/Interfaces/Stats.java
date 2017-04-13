@@ -14,4 +14,6 @@ public interface Stats {
 
     void onAverageTime(int value);
     void averageTimeCompletedPerType(HashMap<PersonType, Integer> values);
+
+    void onAverageMainQueueTime(int value);
 }

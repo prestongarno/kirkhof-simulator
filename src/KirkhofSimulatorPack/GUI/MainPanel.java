@@ -2,12 +2,10 @@ package KirkhofSimulatorPack.GUI;
 
 import KirkhofSimulatorPack.Checkout;
 import KirkhofSimulatorPack.Eatery;
-import KirkhofSimulatorPack.MainQueue;
-import KirkhofSimulatorPack.Person;
+import KirkhofSimulatorPack.people.Person;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 
 /************************************
@@ -27,7 +25,7 @@ public class MainPanel extends JPanel {
 	/*****************************************
 	 * The Main display jpanel
 	 ****************************************/
-	public MainPanel(MainQueue queue, List<Eatery> eateries, List<Checkout> checkouts) {
+	public MainPanel() {
 		// this is the the panel that holds all subpanels
 		setLayout(new BorderLayout(0, 0));
 		
@@ -38,13 +36,6 @@ public class MainPanel extends JPanel {
 		// JPanel that holds the Eateries
 		EATERIES = new JPanel(layout);
 		
-		for (Eatery e : eateries) {
-			this.addEatery(e);
-		}
-		
-		for (Checkout c : checkouts) {
-			this.addCheckout(c);
-		}
 		MAIN_QUEUE = new MainQueueDisplay();
 	}
 	

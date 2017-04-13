@@ -1,4 +1,4 @@
-package KirkhofSimulatorPack;
+package KirkhofSimulatorPack.people;
 
 import javax.swing.*;
 

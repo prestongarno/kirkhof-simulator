@@ -1,5 +1,7 @@
 package KirkhofSimulatorPack;
 
+import KirkhofSimulatorPack.people.Person;
+
 import java.lang.*;
 
 /**

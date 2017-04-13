@@ -1,4 +1,7 @@
-package KirkhofSimulatorPack;
+package KirkhofSimulatorPack.people;
+
+import KirkhofSimulatorPack.ClockListener;
+import KirkhofSimulatorPack.Eatery;
 
 import java.util.Random;
 

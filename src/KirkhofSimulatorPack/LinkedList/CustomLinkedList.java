@@ -1,8 +1,6 @@
 package KirkhofSimulatorPack.LinkedList;
 
 
-import KirkhofSimulatorPack.Person;
-
 import java.util.*;
 
 

@@ -3,6 +3,7 @@ package KirkhofSimulatorPack;
 
 import KirkhofSimulatorPack.Interfaces.Stats;
 import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
+import KirkhofSimulatorPack.people.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,10 @@ public class MainQueue implements ClockListener {
 
 	/**Variable to represent checkout line*/
 	private final List<Checkout> checkouts;
+
+	private int averageTimeInQueue;
+	/** the amount of people that have passed through the main queue */
+	private int throughput;
 	
 	/*****************************************
 	 * Create a queue with initial size 0
@@ -61,6 +66,12 @@ public class MainQueue implements ClockListener {
 		for(Checkout checkout : this.checkouts) {
 			if(checkout.isOpen()) {
 				checkout.setPerson(this.QUEUE.removeLast());
+
+				// this is where our interface instances get updated
+				this.throughput ++;
+				for (Stats s : this.OBSERVERING) {
+					s.onAverageMainQueueTime(tick);
+				}
 			}
 		}
 
@@ -70,6 +81,10 @@ public class MainQueue implements ClockListener {
 			if(p.getLeaveTime() >= tick - p.getTickTime()) {
 				QUEUE.remove(p);
 			}
+		}
+
+		for (Stats s : this.OBSERVERING) {
+
 		}
 	}
 

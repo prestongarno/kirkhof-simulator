@@ -1,5 +1,7 @@
 package KirkhofSimulatorPack;
 
+import KirkhofSimulatorPack.people.Person;
+
 import java.util.ArrayList;
 
 
@@ -11,6 +13,9 @@ import java.util.ArrayList;
  **********************************************************************/
 
 public class Eatery implements ClockListener {
+
+
+	// TODO: 4/12/17 use this arraylist instead of person variable for allowing for a line 
 	/**The line for the eatery*/
 	private ArrayList<Person> Q = new ArrayList<>();
 	
@@ -19,10 +24,7 @@ public class Eatery implements ClockListener {
 	
 	/**The maximum value for eatery line length*/
 	private int maxQlength = 0;
-	
-	/**Person at eatery*/
-	private Person person;   
-	
+
 	/**The number of people who have gone through eatery*/
 	private int completed = 0;
 	

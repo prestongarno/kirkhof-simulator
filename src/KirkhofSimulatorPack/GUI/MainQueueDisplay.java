@@ -1,11 +1,10 @@
 package KirkhofSimulatorPack.GUI;
 
 import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
-import KirkhofSimulatorPack.Person;
+import KirkhofSimulatorPack.people.Person;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 
 /** **************************************************

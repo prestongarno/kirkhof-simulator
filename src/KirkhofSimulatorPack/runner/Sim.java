@@ -1,8 +1,7 @@
 package KirkhofSimulatorPack.runner;
 
 import KirkhofSimulatorPack.*;
-
-
+import KirkhofSimulatorPack.people.PersonProducer;
 
 
 /**************************************************************

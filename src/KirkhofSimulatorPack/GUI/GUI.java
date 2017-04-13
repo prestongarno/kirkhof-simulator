@@ -1,16 +1,11 @@
 package KirkhofSimulatorPack.GUI;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.*;
-import java.io.*;
-import java.text.*;
+
 import KirkhofSimulatorPack.*;
 import KirkhofSimulatorPack.Interfaces.Stats;
 
@@ -20,7 +15,7 @@ import KirkhofSimulatorPack.Interfaces.Stats;
  *@author 
  *@version 4/12/17
  *********************************************************************/
-public class GUI extends JFrame implements ActionListener, Stats {
+public class GUI implements ActionListener, Stats {
 
 	/**Number of initial eateries*/
 	private int numEateries=5;
@@ -135,10 +130,7 @@ public class GUI extends JFrame implements ActionListener, Stats {
     
     /**Button to update input*/
     private JButton updateInfo;
-    
-    /**Creation of clock*/
-    private Clock clk = new Clock();
-    
+
     /**Creation of array of eateries*/
     private Eatery eateryArray[];
     
@@ -154,24 +146,11 @@ public class GUI extends JFrame implements ActionListener, Stats {
 
 /**********************************************************************
  * Application of GUI Panels for buttons and stats
- *********************************************************************/
-    public GUI(){
+ ********************************************************************
+ * @param mainPanel*/
+    public GUI(MainPanel mainPanel){
     	
-    	Clock clk = new Clock();
-    	Eatery eateryArray[]=new Eatery[numEateries];
-		MainQueue mainQ = new MainQueue();
-		Checkout checkoutArray[] = new Checkout[numCheckouts];
 
-		PersonProducer newSim = new PersonProducer(eateryArray,
-				numOfTicksNextPerson, averageEateryTime,
-				averageCashierTime, averageLeaveTime);
-		clk.add(newSim);
-		for(int i=0; i<numEateries;i++){
-			clk.add(eateryArray[i]);
-		}
-
-		clk.add(mainQ);
-		
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		panel.setVisible(true);
@@ -182,8 +161,7 @@ public class GUI extends JFrame implements ActionListener, Stats {
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(5, 5));
 
-		//TODO need to change eateryArray and checkoutArray to arrays in the MainPanel class or vice versa (but that would be harder)
-		//centerPanel.add(new MainPanel(mainQ, eateryArray, checkoutArray));
+		centerPanel.add(mainPanel);
         
         //creation of left panel
         //Displays buttons text fields
@@ -285,8 +263,6 @@ public class GUI extends JFrame implements ActionListener, Stats {
 		panel.add(panelRight, BorderLayout.EAST);
 		panel.add(panelLeft, BorderLayout.WEST);
 		panel.add(centerPanel, BorderLayout.CENTER);
-		add(panel);
-
     }
 /***********************************************************************
  * Method that will Update all the stats for sim
@@ -312,7 +288,7 @@ public class GUI extends JFrame implements ActionListener, Stats {
 	    maxLineEatery5.setText("Maximum length of line at Eatery 5: "+eateryArray[4].getMaxQlength());
 	    numCustomersLost.setText("Number of Customers Lost: ");
 	    totalPeople.setText("Total Number of Customers: ");
-	    currentTime.setText("Current Time: "+Integer.toString(clk.getTickCount()));
+	    //currentTime.setText("Current Time: "+Integer.toString(clk.getTickCount()));
 	    currentQlength.setText("Current length of Q: ");
 	    maxQlength.setText("Max length of the Q: ");
     }
@@ -324,7 +300,7 @@ public class GUI extends JFrame implements ActionListener, Stats {
   *********************************************************************/
     public void actionPerformed(ActionEvent e) {
        
-        if(e.getSource()==startButton){
+        /*if(e.getSource()==startButton){
     		clk.startClock();
         }
         
@@ -346,16 +322,27 @@ public class GUI extends JFrame implements ActionListener, Stats {
     				numOfTicksNextPerson, averageEateryTime,
     				averageCashierTime, averageLeaveTime);
     		clk.add(newSim);
-        }
-
+        }*/
     }
+
+    public void setStartButtonListener(ActionListener listener) {
+    	startButton.addActionListener(listener);
+	}
+
+	public void setStopButtonListener(ActionListener listener) {
+    	stopButton.addActionListener(listener);
+	}
+
+    public JPanel getPanel() {
+    	return this.panel;
+	}
 
 	/**
 	 * Main method to run the program
 	 * @param args
 	 */
 	public static void main(String[] args){
-		new GUI();
+		new GUI(new MainPanel());
 	}
 
 	@Override
@@ -376,5 +363,12 @@ public class GUI extends JFrame implements ActionListener, Stats {
 	@Override
 	public void averageTimeCompletedPerType(HashMap<PersonType, Integer> values) {
 
+	}
+
+	@Override
+	public void onAverageMainQueueTime(int value) {
+		// TODO: 4/12/17 fix this
+		System.out.println("New interface called" + value);
+		this.currentTime.setText("Current Time: " + value);
 	}
 }
