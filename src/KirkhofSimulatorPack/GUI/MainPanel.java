@@ -2,17 +2,20 @@ package KirkhofSimulatorPack.GUI;
 
 import KirkhofSimulatorPack.Checkout;
 import KirkhofSimulatorPack.Eatery;
+import KirkhofSimulatorPack.Interfaces.QueueListener;
 import KirkhofSimulatorPack.people.Person;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 
 /************************************
  * Created by preston
  ****************************************/
 // TODO: 4/10/17 Add toggle buttons for the eateries and the checkouts
-public class MainPanel extends JPanel {
+public class MainPanel extends JPanel implements QueueListener {
 	
 	
 	private final MainQueueDisplay MAIN_QUEUE;
@@ -80,7 +83,18 @@ public class MainPanel extends JPanel {
 			panel.setIcon(person == null ? null : person.getIconRepresentation());
 		}
 	}
-	
+
+	@Override
+	public void onUpdateQueue(List<PersonType> line) {
+		System.out.println("Current queue: ");
+		line.forEach(System.out::print);
+	}
+
+	@Override
+	public void onPersonLeaveQueue(int index) {
+		System.out.println("Person left the Queue! at index: " + index);
+	}
+
 	/*****************************************
 	 * The Jpanel that represents a checkout
 	 ****************************************/

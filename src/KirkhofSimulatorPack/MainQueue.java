@@ -1,7 +1,9 @@
 package KirkhofSimulatorPack;
 
 
-import KirkhofSimulatorPack.Interfaces.Stats;
+import KirkhofSimulatorPack.GUI.PersonType;
+import KirkhofSimulatorPack.Interfaces.QueueListener;
+import KirkhofSimulatorPack.Interfaces.StatsListener;
 import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
 import KirkhofSimulatorPack.people.Person;
 
@@ -44,6 +46,7 @@ public class MainQueue implements ClockListener {
 		QUEUE = new CustomLinkedList<>();
 		checkouts = new ArrayList<>();
 		OBSERVERING = new ArrayList<>();
+		QUEUE_LISTENERS = new ArrayList<>();
 	}
 	
 	/*****************************************
@@ -69,22 +72,24 @@ public class MainQueue implements ClockListener {
 
 				// this is where our interface instances get updated
 				this.throughput ++;
-				for (Stats s : this.OBSERVERING) {
+				for (StatsListener s : this.OBSERVERING) {
 					s.onAverageMainQueueTime(tick);
 				}
 			}
 		}
 
+		List<PersonType> typesQueue = new ArrayList<>(size());
 		Person p;
 		for (int i = 0; i < QUEUE.size(); i++) {
 			p = QUEUE.get(i);
+			typesQueue.add(PersonType.getType(p));
 			if(p.getLeaveTime() >= tick - p.getTickTime()) {
 				QUEUE.remove(p);
 			}
 		}
 
-		for (Stats s : this.OBSERVERING) {
-
+		for (QueueListener q : QUEUE_LISTENERS) {
+			q.onUpdateQueue(typesQueue);
 		}
 	}
 
@@ -139,13 +144,18 @@ public class MainQueue implements ClockListener {
 
 	// observer pattern
 
-	final List<Stats> OBSERVERING;
+	final List<StatsListener> OBSERVERING;
+	final List<QueueListener> QUEUE_LISTENERS;
 
-	public void registerStats(Stats stats) {
+	public void registerStatsListener(StatsListener stats) {
 		OBSERVERING.add(stats);
 	}
 
-	public void removeStats(Stats stats) {
+	public void removeStats(StatsListener stats) {
 		OBSERVERING.remove(stats);
+	}
+
+	public void registerQueueListener(QueueListener listener) {
+		QUEUE_LISTENERS.add(listener);
 	}
 }

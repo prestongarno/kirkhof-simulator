@@ -66,7 +66,8 @@ public class Controller {
 
         clk.add(mainQ);
 
-        mainQ.registerStats(gui);
+        mainQ.registerStatsListener(gui);
+        mainQ.registerQueueListener(mainPanel);
 
         new Controller(gui, newSim, clk);
 
@@ -76,8 +77,6 @@ public class Controller {
         frame.add(gui.getPanel());
         frame.pack();
         frame.setVisible(true);
-
-        clk.startClock();
     }
 
 

@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * Created by Chad on 4/12/2017.
  */
-public interface Stats {
+public interface StatsListener {
     void onNumCompleted(int completed);
     // getKey() for key, getValue() for value, hashmap.getValues()
     void typesOfPeopleCompleted(HashMap<PersonType, Integer> values);

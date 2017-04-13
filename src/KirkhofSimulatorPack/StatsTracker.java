@@ -1,7 +1,5 @@
 package KirkhofSimulatorPack;
 
-import KirkhofSimulatorPack.Interfaces.Stats;
-
 /**
  * Created by preston on 4/12/17.
  */

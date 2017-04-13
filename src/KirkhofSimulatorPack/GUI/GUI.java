@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 import KirkhofSimulatorPack.*;
-import KirkhofSimulatorPack.Interfaces.Stats;
+import KirkhofSimulatorPack.Interfaces.StatsListener;
 
 /**********************************************************************
  * Main application of GUI for food court simulation
@@ -15,7 +15,7 @@ import KirkhofSimulatorPack.Interfaces.Stats;
  *@author 
  *@version 4/12/17
  *********************************************************************/
-public class GUI implements ActionListener, Stats {
+public class GUI implements ActionListener, StatsListener {
 
 	/**Number of initial eateries*/
 	private int numEateries=5;
