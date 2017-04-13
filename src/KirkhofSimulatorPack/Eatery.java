@@ -1,6 +1,7 @@
 package KirkhofSimulatorPack;
 
 import KirkhofSimulatorPack.people.Person;
+import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.ArrayList;
 
@@ -95,37 +96,42 @@ public class Eatery implements ClockListener {
 	 * @param tick The current time of the clock
 	 ******************************************************************/
 	public void event(int tick) {
+		Person person = null;
 
 		if (tick >= timeOfNextEvent) {
 
-			if(person.getLeaveTime() >= tick - person.getTickTime()){
-				//if the person exceeds waiting time, remove from 
-				//simulation
-				Q.remove(person);
-				totalPeopleLeft++;
-			}
-
-
-			 if (person != null) { 
-				// take this person to the next station.
-			 mainList.add(person); 
-			 person = null; // I have send the person on.
-			 storeTick=tick;
-			 }
-
 			if (Q.size() >= 1) {
-				person = Q.remove(0); 
+				person = Q.remove(0);
 				// do not send this person as of yet, make
 				// them wait.
 
 				timeOfNextEvent = tick
 						+ (int) (person.getEateryTime() + 1);
-				// this is where you would send on the person to the 
+				// this is where you would send on the person to the
 				// next listener.
 				completed++;
-				
-				
+
+
 			}
+			for (int i = 0; i < Q.size(); i++) {
+
+				if (Q.get(i).getLeaveTime() >= tick - Q.get(i).getTickTime()) {
+					//if the person exceeds waiting time, remove from
+					//simulation
+					Q.remove(i);
+					totalPeopleLeft++;
+				}
+
+			}
+
+			if (person != null) {
+				// take this person to the next station.
+				mainList.add(person);
+				person = null; // I have send the person on.
+				storeTick=tick;
+			}
+
+
 		}
 	}
 	/****************************************************************
@@ -153,11 +159,13 @@ public class Eatery implements ClockListener {
  	 **************************************************************/
 	public String getAverageEateryTime()
 	{
-		sum=storeTick-person.getTickTime()+sum;
-		average=sum/completed;
+		// TODO: 4/12/2017 fix this method to work properly
+		//to get the GUI to run, this must be commented out 4/12/17 9:20pm
+		//sum=storeTick-person.getTickTime()+sum;
+		//average=sum/completed;
 		return Integer.toString(average);
 	}
-	
+
 	
 	/****************************************************************
 	 * Counter for the number of people going through the eatery
