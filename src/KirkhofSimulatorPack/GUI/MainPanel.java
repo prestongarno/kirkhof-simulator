@@ -21,6 +21,9 @@ public class MainPanel extends JPanel implements QueueListener {
 	private final MainQueueDisplay MAIN_QUEUE;
 	private final JPanel EATERIES;
 	private final JPanel CHECKOUTS;
+
+	private JCheckBox checkoutCheckbox[];
+	private JCheckBox eateryCheckbox[];
 	
 	private JPanel[] eateryPanels;
 	private CheckoutPanel[] checkoutPanels;
@@ -40,6 +43,17 @@ public class MainPanel extends JPanel implements QueueListener {
 		EATERIES = new JPanel(layout);
 		
 		MAIN_QUEUE = new MainQueueDisplay();
+
+		checkoutCheckbox = new JCheckBox[5];
+		eateryCheckbox = new JCheckBox[5];
+
+		//check boxes for enabling/disabling the eateries/checkouts
+		for (int i = 0; i < 5; i++) {
+			checkoutCheckbox[i] = new JCheckBox();
+			eateryCheckbox[i] = new JCheckBox();
+			CHECKOUTS.add(checkoutCheckbox[i]);
+			EATERIES.add(eateryCheckbox[i]);
+		}
 	}
 	
 	/*****************************************
