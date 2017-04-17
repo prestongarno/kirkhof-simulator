@@ -69,11 +69,11 @@ public abstract class Venue implements ClockListener {
 				.collect(Collectors.toCollection(ArrayList::new))));
 	}
 
-	private void addListener(QueueListener listener) {
+	public void addListener(QueueListener listener) {
 		this.listeners.add(listener);
 	}
 
-	private void removeListener(QueueListener listener) {
+	public void removeListener(QueueListener listener) {
 		this.listeners.remove(listener);
 	}
 

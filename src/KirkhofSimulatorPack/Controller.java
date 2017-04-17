@@ -3,6 +3,7 @@ package KirkhofSimulatorPack;
 import KirkhofSimulatorPack.GUI.EateryCheckoutPanel;
 import KirkhofSimulatorPack.GUI.GUI;
 import KirkhofSimulatorPack.GUI.MainPanel;
+import KirkhofSimulatorPack.Interfaces.QueueListener;
 import KirkhofSimulatorPack.people.PersonProducer;
 
 import javax.swing.*;
@@ -72,15 +73,20 @@ public class Controller implements ClockListener {
         // list of eaterycheckpanels half of them checkouts
         this.locations = new ArrayList<>(10);
 
+        //================================================
+        /* create panels and respective eateries and register the listeners */
         for (int i = 0; i < 5; i++) {
             Eatery ea = new Eatery("Eatery $" + i);
-            panel.addEatery(ea.getName());
+            QueueListener lstnr = panel.addEatery(ea.getName());
+            ea.addListener(lstnr);
 
             Checkout checkout = new Checkout("Checkout $" + i);
-            panel.addCheckout(checkout.getName());
+            lstnr = panel.addCheckout(checkout.getName());
+            checkout.addListener(lstnr);
             locations.add(ea);
             locations.add(checkout);
         }
+        //================================================
 
 
         PersonProducer newSim = new PersonProducer(
