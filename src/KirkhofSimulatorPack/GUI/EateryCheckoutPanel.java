@@ -4,6 +4,7 @@ import KirkhofSimulatorPack.Eatery;
 import KirkhofSimulatorPack.Interfaces.QueueListener;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -16,6 +17,8 @@ import java.awt.event.ItemListener;
  */
 public final class EateryCheckoutPanel extends JPanel implements ItemListener, QueueListener {
 
+    private static final int PREF_WTH = 70;
+    private static final int PREF_HGHT = 140;
     /** the Jpanel that holds all of the icons for each person
      */
     private final JPanel line;
@@ -24,6 +27,8 @@ public final class EateryCheckoutPanel extends JPanel implements ItemListener, Q
     private final JLabel titleLabel;
     private String title;
     private JCheckBox eateryCheckbox;
+
+    private final Dimension PREF_SIZE;
 
     public EateryCheckoutPanel(String title) {
         this.title = title;
@@ -35,11 +40,18 @@ public final class EateryCheckoutPanel extends JPanel implements ItemListener, Q
         this.setLayout(new BorderLayout());
         titleLabel = new JLabel(title);
         this.add(titleLabel);
-        this.add(eateryCheckbox, BorderLayout.AFTER_LAST_LINE);
+        this.add(eateryCheckbox, BorderLayout.PAGE_END);
         line = new JPanel(new FlowLayout(FlowLayout.LEFT));
         this.add(line);
         //icons = new LinkedList<>();
 
+        // add border for layout changes
+        Border border = BorderFactory.createLineBorder(Color.black);
+        this.setBorder(border);
+
+        PREF_SIZE = new Dimension(PREF_HGHT, PREF_WTH);
+        //component sizing
+        setPreferredSize(PREF_SIZE);
         // swing configuration stuff
         this.setFocusable(false);
         this.setOpaque(true);

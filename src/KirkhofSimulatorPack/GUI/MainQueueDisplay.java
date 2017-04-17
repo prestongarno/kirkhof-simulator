@@ -23,8 +23,12 @@ public class MainQueueDisplay extends JPanel implements QueueListener {
 	 ****************************************/
 	public MainQueueDisplay() {
 		setLayout(new BorderLayout());
-		add(new JLabel("Main Queue"));
-		LINE = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		add(new JLabel("Main Queue"), BorderLayout.NORTH);
+		LINE = new JPanel(new FlowLayout());
+		this.add(LINE, BorderLayout.CENTER);
+
+		this.setOpaque(true);
+		this.setVisible(true);
 
 	}
 	

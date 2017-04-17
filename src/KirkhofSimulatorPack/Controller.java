@@ -58,6 +58,7 @@ public class Controller implements ClockListener {
         new Controller(gui, clk);
         frame.add(gui.getPanel());
         frame.pack();
+        //frame.setMinimumSize(new Dimension(400,600));
         frame.setVisible(true);
     }
 

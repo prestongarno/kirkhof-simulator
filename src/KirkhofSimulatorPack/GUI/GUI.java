@@ -155,13 +155,13 @@ public class GUI implements ActionListener {
 
 		// creation of Center Panel
 		// Center panel runs simulation
-		centerPanel = new JPanel();
+/*		centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(5, 5));
 		centerPanel.setVisible(true);
-		centerPanel.setFocusable(true);
+		centerPanel.setFocusable(true);*/
 		this.mainPanel = mainPanel;
-		centerPanel.add(mainPanel);
-        
+		this.panel.add(mainPanel, BorderLayout.CENTER);
+
         //creation of left panel
         //Displays buttons text fields
      	panelLeft= new JPanel();
@@ -261,7 +261,6 @@ public class GUI implements ActionListener {
 		panel.add(panelDown, BorderLayout.SOUTH);
 		panel.add(panelRight, BorderLayout.EAST);
 		panel.add(panelLeft, BorderLayout.WEST);
-		panel.add(centerPanel, BorderLayout.CENTER);
     }
 /***********************************************************************
  * Method that will Update all the stats for sim
@@ -343,13 +342,4 @@ public class GUI implements ActionListener {
     public JPanel getPanel() {
     	return this.panel;
 	}
-
-	/**
-	 * Main method to run the program
-	 * @param args
-	 */
-	public static void main(String[] args){
-		new GUI(new MainPanel());
-	}
-
 }
