@@ -21,6 +21,7 @@ public class MainQueueDisplay extends JPanel {
 		setLayout(new BorderLayout());
 		add(new JLabel("Main Queue"));
 		LINE = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
 	}
 	
 	/*****************************************

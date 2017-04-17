@@ -156,11 +156,13 @@ public class GUI implements ActionListener, StatsListener {
 		panel.setVisible(true);
 		panel.setFocusable(true);
 
+
 		// creation of Center Panel
 		// Center panel runs simulation
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(5, 5));
-
+		centerPanel.setVisible(true);
+		centerPanel.setFocusable(true);
 		centerPanel.add(mainPanel);
         
         //creation of left panel
