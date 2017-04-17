@@ -1,11 +1,13 @@
 package KirkhofSimulatorPack.GUI;
 
 import javax.swing.*;
+//import javafx.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import KirkhofSimulatorPack.*;
+import KirkhofSimulatorPack.people.PersonProducer;
 
 /**********************************************************************
  * Main application of GUI for food court simulation
@@ -14,6 +16,10 @@ import KirkhofSimulatorPack.*;
  *@version 4/12/17
  *********************************************************************/
 public class GUI implements ActionListener {
+
+	private Clock clk;
+
+	private Eatery[] eateryArray;
 
 	/**Number of initial eateries*/
 	private int numEateries=5;
@@ -170,20 +176,20 @@ public class GUI implements ActionListener {
      	//Left Panel Elements
      	startButton = new JButton("Start");
      	stopButton = new JButton("Stop");
-     	avgEatTime=new JTextField();
-     	avgLeaveTime=new JTextField();
-     	avgCashTime=new JTextField();
-     	numTicksNext=new JTextField();
-     	updateInfo=new JButton("Update Info");
+		updateInfo = new JButton("Update Info");
+     	avgEatTime = new JTextField();
+     	avgLeaveTime = new JTextField();
+     	avgCashTime = new JTextField();
+     	numTicksNext = new JTextField();
      	
      	//Left Panel Action Listeners
      	startButton.addActionListener(this);
-     	stopButton.addActionListener(this);
-     	updateInfo.addActionListener(this);
-     	
-     	//Add elements to left panel
-        // Use of rigid area to create spacing between elements
-        panelLeft.add(startButton);
+		stopButton.addActionListener(this);
+		updateInfo.addActionListener(this);
+
+		// Add elements to left panel
+		// Use of rigid area to create spacing between elements
+		panelLeft.add(startButton);
         panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
         panelLeft.add(stopButton);
         panelLeft.add(new JLabel("Average Eatery Time"));
@@ -306,9 +312,13 @@ public class GUI implements ActionListener {
   * Action perform statements for buttons
   *********************************************************************/
     public void actionPerformed(ActionEvent e) {
-       
-        /*if(e.getSource()==startButton){
-    		clk.startClock();
+
+		clk = new Clock();
+
+		eateryArray = new Eatery[5];
+
+        if(e.getSource()==startButton){
+			clk.startClock();
         }
         
         if(e.getSource()==stopButton){
@@ -329,7 +339,7 @@ public class GUI implements ActionListener {
     				numOfTicksNextPerson, averageEateryTime,
     				averageCashierTime, averageLeaveTime);
     		clk.add(newSim);
-        }*/
+        }
     }
 
     public void setStartButtonListener(ActionListener listener) {

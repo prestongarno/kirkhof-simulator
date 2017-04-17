@@ -30,17 +30,10 @@ public class Clock {
 	public Clock() {
 		listeners = new CustomLinkedList<>();
 		this.currentTime = 0;
-		CLOCK_TIMER = new Timer(500, new ActionListener() {
-			@Override
-			/*********************************************************
-			 * Calls every second of clock
-			 * @param e the current time of the clock
-			 ********************************************************/
-			public void actionPerformed(ActionEvent e) {
-				Clock.this.tick(currentTime++);
-				System.out.println("TICK - " + currentTime);
-			}
-		});
+		CLOCK_TIMER = new Timer(500, e -> {
+            Clock.this.tick(currentTime++);
+            System.out.println("TICK - " + currentTime);
+        });
 	}
 	/******************************************************************
 	 * Starts the clock
@@ -104,10 +97,10 @@ public class Clock {
 	 *
 	 *****************************************************************/
 	public void stopClock() {
-		this.CLOCK_TIMER.stop();
-		for (ActionListener listener : CLOCK_TIMER.getActionListeners()) {
+		CLOCK_TIMER.stop();
+		/*for (ActionListener listener : CLOCK_TIMER.getActionListeners()) {
 			CLOCK_TIMER.removeActionListener(listener);
-		}
+		}*/
 	}
 
 	/******************************************************************
