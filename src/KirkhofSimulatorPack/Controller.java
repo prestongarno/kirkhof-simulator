@@ -55,15 +55,15 @@ public class Controller implements ClockListener {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(200,200));
+        new Controller(gui, clk);
         frame.add(gui.getPanel());
         frame.pack();
         frame.setVisible(true);
     }
 
 
-    Controller(GUI gui, PersonProducer producer, Clock clock) {
+    Controller(GUI gui, Clock clock) {
         this.gui = gui;
-        this.producer = producer;
         this.clock = clock;
         setButtons();
 
@@ -89,18 +89,16 @@ public class Controller implements ClockListener {
         //================================================
 
 
-        PersonProducer newSim = new PersonProducer(
+        this.producer = new PersonProducer(
               locations.stream().filter(venue -> venue instanceof Eatery).toArray(Eatery[]::new),
                 numOfTicksNextPerson, averageEateryTime,
                 averageCashierTime, averageLeaveTime);
 
         // add all of the listeners
         clock.add(mainQ);
-        clock.add(newSim);
+        clock.add(producer);
 
         mainQ.registerQueueListener(gui.getMainPanel().getMainQDisplay());
-
-        new Controller(gui, newSim, clock);
     }
 
     private void setButtons() {

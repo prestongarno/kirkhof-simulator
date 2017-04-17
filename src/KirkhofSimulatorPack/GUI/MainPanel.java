@@ -6,12 +6,6 @@ import KirkhofSimulatorPack.Interfaces.QueueListener;
 import javax.swing.*;
 import java.awt.*;
 
-/************************************
- *
- *
- *
- ****************************************/
-// TODO: 4/10/17 Add toggle buttons for the eateries and the checkouts
 public class MainPanel extends JPanel {
 	
 	
@@ -27,16 +21,29 @@ public class MainPanel extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		
 		//The layout for the eateries and the checkout
-		final GridLayout layout = new GridLayout(1, 10, 4, 4);
+        final GridLayout sidePanelLayouts = new GridLayout(5, 1);
 
 		//JPanel that holds the Checkouts
-        CHECKOUTS = new JPanel(layout);
+        CHECKOUTS = new JPanel(sidePanelLayouts);
 
 		// JPanel that holds the Eateries
-		EATERIES = new JPanel(layout);
+		EATERIES = new JPanel(sidePanelLayouts);
 		
 		MAIN_QUEUE = new MainQueueDisplay();
 
+
+		this.add(EATERIES, BorderLayout.WEST);
+		this.add(CHECKOUTS, BorderLayout.EAST);
+		this.add(MAIN_QUEUE, BorderLayout.CENTER);
+		EATERIES.setOpaque(false);
+		CHECKOUTS.setOpaque(false);
+		MAIN_QUEUE.setOpaque(false);
+		EATERIES.setVisible(true);
+		CHECKOUTS.setVisible(true);
+		MAIN_QUEUE.setVisible(true);
+		setBackground(Color.BLUE);
+		setFocusable(false);
+		setOpaque(false);
 	  	setVisible(true);
 	}
 	

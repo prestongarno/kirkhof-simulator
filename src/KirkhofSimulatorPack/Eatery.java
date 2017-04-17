@@ -42,14 +42,13 @@ public class Eatery extends Venue implements ClockListener {
 		if (tick >= timeOfNextEvent) {
 
 			if (Q.size() >= 1) {
-				person = Q.remove(0);
-				// do not send this person as of yet, make
-				// them wait.
-
 				timeOfNextEvent = tick
 						+ (int) (person.getEateryTime() + 1);
 				// this is where you would send on the person to the
 				// next listeners.
+                if(timeOfNextEvent >= tick) {
+                    MainQueue.getInstance().add(Q.remove(0));
+				}
 				completed++;
 
 
@@ -61,6 +60,8 @@ public class Eatery extends Venue implements ClockListener {
 					//simulation
 					Q.remove(i);
 					totalPeopleLeft++;
+					int finalI = i;
+					this.listeners.forEach(listener -> listener.onPersonLeaveQueue(finalI));
 				}
 
 			}

@@ -6,6 +6,7 @@ import KirkhofSimulatorPack.Interfaces.QueueListener;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -15,18 +16,34 @@ import java.awt.event.ItemListener;
  */
 public final class EateryCheckoutPanel extends JPanel implements ItemListener, QueueListener {
 
-    private Eatery eatery;
+    /** the Jpanel that holds all of the icons for each person
+     */
+    private final JPanel line;
+
+    //private final List<JLabel> icons; <-- just recreate labels for now each time
+    private final JLabel titleLabel;
     private String title;
-    private final List<JLabel> icons;
     private JCheckBox eateryCheckbox;
 
     public EateryCheckoutPanel(String title) {
-        this.eatery = eatery;
         this.title = title;
         eateryCheckbox = new JCheckBox("Active");
         eateryCheckbox.setForeground(Color.GREEN);
         eateryCheckbox.addItemListener(this);
-        icons = new ArrayList<>(10);
+
+        // adding the components to the panel
+        this.setLayout(new BorderLayout());
+        titleLabel = new JLabel(title);
+        this.add(titleLabel);
+        this.add(eateryCheckbox, BorderLayout.AFTER_LAST_LINE);
+        line = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        this.add(line);
+        //icons = new LinkedList<>();
+
+        // swing configuration stuff
+        this.setFocusable(false);
+        this.setOpaque(true);
+        this.setVisible(true);
     }
 
     /*****************************************
@@ -57,12 +74,18 @@ public final class EateryCheckoutPanel extends JPanel implements ItemListener, Q
     }
 
     @Override
-    public void onUpdateQueue(List<PersonType> line) {
-        
+    public void onUpdateQueue(List<PersonType> people) {
+        // update the list of jlabels here
+        this.line.removeAll();
+        for (PersonType p : people) {
+            line.add(new JLabel(p.getIcon()));
+        }
+
     }
 
     @Override
     public void onPersonLeaveQueue(int index) {
+        line.remove(index);
 
     }
 }
