@@ -4,10 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 
 import KirkhofSimulatorPack.*;
-import KirkhofSimulatorPack.Interfaces.StatsListener;
 
 /**********************************************************************
  * Main application of GUI for food court simulation
@@ -15,7 +13,7 @@ import KirkhofSimulatorPack.Interfaces.StatsListener;
  *@author 
  *@version 4/12/17
  *********************************************************************/
-public class GUI implements ActionListener, StatsListener {
+public class GUI implements ActionListener {
 
 	/**Number of initial eateries*/
 	private int numEateries=5;
@@ -131,9 +129,6 @@ public class GUI implements ActionListener, StatsListener {
     /**Button to update input*/
     private JButton updateInfo;
 
-    /**Creation of array of eateries*/
-    private Eatery eateryArray[];
-    
     /**Current time of the clock*/
     private JLabel currentTime;
     
@@ -143,6 +138,7 @@ public class GUI implements ActionListener, StatsListener {
      /**Current length of the Q*/
      private JLabel currentQlength;
 
+     private final MainPanel mainPanel;
 
 /**********************************************************************
  * Application of GUI Panels for buttons and stats
@@ -156,11 +152,14 @@ public class GUI implements ActionListener, StatsListener {
 		panel.setVisible(true);
 		panel.setFocusable(true);
 
+
 		// creation of Center Panel
 		// Center panel runs simulation
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(5, 5));
-
+		centerPanel.setVisible(true);
+		centerPanel.setFocusable(true);
+		this.mainPanel = mainPanel;
 		centerPanel.add(mainPanel);
         
         //creation of left panel
@@ -269,14 +268,17 @@ public class GUI implements ActionListener, StatsListener {
  * @param tick calls event every clock cycle
  ***********************************************************************/
     public void event(int tick){
-    	numCompleted.setText("Number of People Completed: ");
+		for (StatsTracker.StatHolder stat : StatsTracker.getInstance().STATS) {
+
+		}
+		numCompleted.setText("Number of People Completed: ");
 	    numCompleteSpecial.setText("Number of Special People Completed: ");
 	    numCompleteReg.setText("Number of Regular People Completed: ");
 	    numCompleteLimited.setText("Number of Limited Time People Completed: ");
 	    averageTimeCompleteSpecial.setText("Average Time Speical People for Completion: ");
 	    averageTimeCompleteReg.setText("Average Time Regular People Completion: ");
 	    averageTimeCompleteLimited.setText("Average Time Limited Time People Completion: ");
-	    averageTimeCompleteEatery1.setText("Average Time to go Through Eatery 1: "+ eateryArray[0].getAverageEateryTime());
+/*	    averageTimeCompleteEatery1.setText("Average Time to go Through Eatery 1: "+ eateryArray[0].getAverageEateryTime());
 	    averageTimeCompleteEatery2.setText("Average Time to go Through Eatery 2: "+eateryArray[1].getAverageEateryTime());
 	    averageTimeCompleteEatery3.setText("Average Time to go Through Eatery 3: "+eateryArray[2].getAverageEateryTime());
 	    averageTimeCompleteEatery4.setText("Average Time to go Through Eatery 4: "+eateryArray[3].getAverageEateryTime());
@@ -285,13 +287,18 @@ public class GUI implements ActionListener, StatsListener {
 	    maxLineEatery2.setText("Maximum length of line at Eatery 2: "+eateryArray[1].getMaxQlength());
 	    maxLineEatery3.setText("Maximum length of line at Eatery 3: "+eateryArray[2].getMaxQlength());
 	    maxLineEatery4.setText("Maximum length of line at Eatery 4: "+eateryArray[3].getMaxQlength());
-	    maxLineEatery5.setText("Maximum length of line at Eatery 5: "+eateryArray[4].getMaxQlength());
+	    maxLineEatery5.setText("Maximum length of line at Eatery 5: "+eateryArray[4].getMaxQlength());*/
 	    numCustomersLost.setText("Number of Customers Lost: ");
 	    totalPeople.setText("Total Number of Customers: ");
 	    //currentTime.setText("Current Time: "+Integer.toString(clk.getTickCount()));
 	    currentQlength.setText("Current length of Q: ");
 	    maxQlength.setText("Max length of the Q: ");
     }
+
+
+    public MainPanel getMainPanel() {
+    	return this.mainPanel;
+	 }
     
  
 
@@ -345,30 +352,4 @@ public class GUI implements ActionListener, StatsListener {
 		new GUI(new MainPanel());
 	}
 
-	@Override
-	public void onNumCompleted(int completed) {
-
-	}
-
-	@Override
-	public void typesOfPeopleCompleted(HashMap<PersonType, Integer> values) {
-
-	}
-
-	@Override
-	public void onAverageTime(int value) {
-
-	}
-
-	@Override
-	public void averageTimeCompletedPerType(HashMap<PersonType, Integer> values) {
-
-	}
-
-	@Override
-	public void onAverageMainQueueTime(int value) {
-		// TODO: 4/12/17 fix this
-		System.out.println("New interface called" + value);
-		this.currentTime.setText("Current Time: " + value);
-	}
 }

@@ -1,9 +1,9 @@
 package KirkhofSimulatorPack;
 
 
+import KirkhofSimulatorPack.GUI.MainPanel;
 import KirkhofSimulatorPack.GUI.PersonType;
 import KirkhofSimulatorPack.Interfaces.QueueListener;
-import KirkhofSimulatorPack.Interfaces.StatsListener;
 import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
 import KirkhofSimulatorPack.people.Person;
 
@@ -38,14 +38,23 @@ public class MainQueue implements ClockListener {
 	private int averageTimeInQueue;
 	/** the amount of people that have passed through the main queue */
 	private int throughput;
+
+	private static MainQueue instance;
+
+	/*****************************************
+	 * This solves the problem of accessing the main queue from checkouts and eateries
+	 * @return the instance of the main queue
+	 ****************************************/
+	public static MainQueue getInstance() {
+		return instance == null ? instance = new MainQueue() : instance;
+	}
 	
 	/*****************************************
 	 * Create a queue with initial size 0
 	 ****************************************/
-	public MainQueue() {
+	private MainQueue() {
 		QUEUE = new CustomLinkedList<>();
 		checkouts = new ArrayList<>();
-		OBSERVERING = new ArrayList<>();
 		QUEUE_LISTENERS = new ArrayList<>();
 	}
 	
@@ -69,12 +78,8 @@ public class MainQueue implements ClockListener {
 		for(Checkout checkout : this.checkouts) {
 			if(checkout.isOpen()) {
 				checkout.setPerson(this.QUEUE.removeLast());
-
-				// this is where our interface instances get updated
 				this.throughput ++;
-				for (StatsListener s : this.OBSERVERING) {
-					s.onAverageMainQueueTime(tick);
-				}
+				// update stats
 			}
 		}
 
@@ -94,10 +99,10 @@ public class MainQueue implements ClockListener {
 	}
 
 
-	/**
+	/*****************************************
 	 *
 	 * @return
-	 */
+	 ****************************************/
 	private Person getNextPerson(){
 		//TODO: fix getLast() method in the linked list
 		return QUEUE.removeLast(); //return last person in line
@@ -142,18 +147,7 @@ public class MainQueue implements ClockListener {
 		return QUEUE;
 	}
 
-	// observer pattern
-
-	final List<StatsListener> OBSERVERING;
 	final List<QueueListener> QUEUE_LISTENERS;
-
-	public void registerStatsListener(StatsListener stats) {
-		OBSERVERING.add(stats);
-	}
-
-	public void removeStats(StatsListener stats) {
-		OBSERVERING.remove(stats);
-	}
 
 	public void registerQueueListener(QueueListener listener) {
 		QUEUE_LISTENERS.add(listener);

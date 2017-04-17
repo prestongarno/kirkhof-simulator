@@ -1,25 +1,36 @@
 package KirkhofSimulatorPack;
 
+import KirkhofSimulatorPack.Interfaces.QueueListener;
 import KirkhofSimulatorPack.people.Person;
 
 import java.lang.*;
+import java.util.Collections;
 
 /**
  * Created by Chad on 4/8/2017.
  */
-public class Checkout<K extends Person> implements ClockListener {
-    //add constructor here, this class should be stupid
-    //it can't see into the main queue
-    //just holds a value 0 for empty and 1 for a person in checkout
+public class Checkout extends Venue implements ClockListener {
 
     int timeOfNextEvent;
 
-    K person;
+    Person person;
 
-    public Checkout(){
+    /** the panel object
+     */
+    private QueueListener listener;
+
+	/** true if this location is open
+	 */
+	private boolean enabled;
+
+    public Checkout(String name){
+    	super(name);
+    	this.enabled = true;
+    	this.maxQlength = 1;
     }
 
-    public void setPerson(K person) {
+
+    public void setPerson(Person person) {
         if(person != null) throw new IllegalArgumentException();
         this.person = person;
         timeOfNextEvent += person.getCashierTime();
@@ -36,7 +47,7 @@ public class Checkout<K extends Person> implements ClockListener {
         }
     }
     
-    public K getPerson() {
+    public Person getPerson() {
         return person;
     }
 }

@@ -30,11 +30,6 @@ public class SpecialNeedsPerson extends Person {
         super.setCashierTime(time*2);
     }
    
-   @Override
-   public Icon getIconRepresentation() {
-      return Util.SPECIAL_NEEDS_PERSON;
-   }
-   
    /**************************************************************
   *  Method to set leave time to be 2 times as much as a 
   *  regular person
