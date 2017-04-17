@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Class that simulates one place to get food. Add person to eatery 
  * and then moves to main Q
  * @author Chad, Jessica, Preston, Alex
- * @version 4/12/17
+ * @version 4/1/17
  **********************************************************************/
 
 public class Eatery implements ClockListener {

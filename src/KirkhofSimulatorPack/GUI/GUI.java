@@ -12,8 +12,8 @@ import KirkhofSimulatorPack.Interfaces.StatsListener;
 /**********************************************************************
  * Main application of GUI for food court simulation
  *
- *@author 
- *@version 4/12/17
+ * @author Preston, Alex, Jessica, Chad
+ * @version 4/18/17
  *********************************************************************/
 public class GUI implements ActionListener, StatsListener {
 
@@ -146,8 +146,9 @@ public class GUI implements ActionListener, StatsListener {
 
 /**********************************************************************
  * Application of GUI Panels for buttons and stats
- ********************************************************************
- * @param mainPanel*/
+ *
+ * @param mainPanel addition of main panel application
+ *********************************************************************/
     public GUI(MainPanel mainPanel){
     	
 

@@ -9,13 +9,18 @@ import java.net.URL;
 
 
 /** **************************************************
- * kirkhof-simulator - KirkhofSimulatorPack.GUI - by Preston Garno on 4/10/17
- *
- * static utility methods for handling resources
+ * kirkhof-simulator - KirkhofSimulatorPack.GUI 
+ * Static utility methods for handling resources and 
+ * icons
+ * @author Preston, Alex, Jessica, Chad
+ * @version 4/18/17
  * ***************************************************/
 public final class Util {
+	/**Variable icon to represent hurried person*/
 	public static final Icon RUNNING_PERSON;
+	/**Variable icon to represent regular person*/
 	public static final Icon REGULAR_PERSON;
+	/**Variable icon to represent special needs person*/
 	public static final Icon SPECIAL_NEEDS_PERSON;
 	
 	static {
@@ -24,7 +29,14 @@ public final class Util {
 		RUNNING_PERSON = Util.loadIcon("RUNNING_PERSON.png", "");
 	}
 	
-	@Nullable
+
+	/*****************************************************************
+	 * Method to load icons for GUI
+	 * @param resourceName name of icon to load
+	 * @param description type of icon to load
+	 * @return icon the image of icon loaded
+	 * @throws RuntimeException Icon is not of expected name
+	 ****************************************************************/
 	public static Icon loadIcon(String resourceName, String description) {
 		final ImageIcon icon;
 		try {

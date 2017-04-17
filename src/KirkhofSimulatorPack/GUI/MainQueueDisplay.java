@@ -8,7 +8,11 @@ import java.awt.*;
 
 
 /** **************************************************
- * kirkhof-simulator - KirkhofSimulatorPack.GUI - by Preston Garno
+ * kirkhof-simulator - KirkhofSimulatorPack.GUI 
+ * Setup of GUI components for Main Q
+ *  
+ * Preston, Alex, Jessica, Chad
+ * @version 4/18/17
  * ***************************************************/
 public class MainQueueDisplay extends JPanel {
 	
@@ -26,7 +30,7 @@ public class MainQueueDisplay extends JPanel {
 	
 	/*****************************************
 	 * Updates the image of the people in line
-	 * @param queue
+	 * @param queue person at given point
 	 ****************************************/
 	public void updateQueue(CustomLinkedList<Person> queue) {
 		

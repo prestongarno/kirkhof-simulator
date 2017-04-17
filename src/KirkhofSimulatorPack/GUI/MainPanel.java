@@ -13,26 +13,37 @@ import java.util.*;
 import java.util.List;
 
 
-/************************************
- * Created by preston
- ****************************************/
-// TODO: 4/10/17 Add toggle buttons for the eateries and the checkouts
+/*********************************************************************
+ * Class to create logic for main Panel for GUI
+ * @author Preston, Chad, Alex, Jessica
+ * @version 4/18/17
+ *********************************************************************/
 public class MainPanel extends JPanel implements QueueListener, ItemListener {
 	
-	
+	/**Formatting of main Q*/
 	private final MainQueueDisplay MAIN_QUEUE;
+	
+	/**J Panel of eatery objects*/
 	private final JPanel EATERIES;
+	
+	/** J Panel of checkout objects*/
 	private final JPanel CHECKOUTS;
 
+	/**Checkbox for checkouts*/
 	private JCheckBox checkoutCheckbox[];
+	
+	/**Checkbox for eateries*/
 	private JCheckBox eateryCheckbox[];
 	
+	/**Panel of Eateries*/
 	private JPanel[] eateryPanels;
-	private CheckoutPanel[] checkoutPanels;
 	
-	/*****************************************
+	/**Panel of checkouts*/
+	private CheckoutPanel[] checkoutPanels;
+
+	/*****************************************************************
 	 * The Main display jpanel
-	 ****************************************/
+	 ****************************************************************/
 	public MainPanel() {
 		// this is the the panel that holds all subpanels
 		setLayout(new BorderLayout(0, 0));
@@ -63,10 +74,10 @@ public class MainPanel extends JPanel implements QueueListener, ItemListener {
         setVisible(true);
 	}
 	
-	/*****************************************
-	 * Add an eatery
-	 * @param eatery the eatery to add
-	 ****************************************/
+    /*****************************************************************
+     * Adds eatery to display
+     * @param eatery index of eatery
+	 ****************************************************************/
 	private void addEatery(Eatery eatery) {
 		JPanel eateryPanel = new JPanel(new BorderLayout(5, 5));
 		
@@ -84,10 +95,10 @@ public class MainPanel extends JPanel implements QueueListener, ItemListener {
 		this.eateryPanels = (JPanel[]) EATERIES.getComponents();
 	}
 	
-	
-	/*****************************************
-	 * Adds a checkout
-	 ****************************************/
+	/*****************************************************************
+	 * Adds checkout to GUI
+	 * @param c representation of checkout
+	 ****************************************************************/
 	private void addCheckout(Checkout c) {
 		CheckoutPanel checkoutPanel = new CheckoutPanel(c, "Checkout " + EATERIES.getComponentCount(),
 				c.getPerson() == null ? null : c.getPerson().getIconRepresentation());
@@ -95,9 +106,9 @@ public class MainPanel extends JPanel implements QueueListener, ItemListener {
 		this.checkoutPanels = (CheckoutPanel[]) CHECKOUTS.getComponents();
 	}
 	
-	/*****************************************
+	/*****************************************************************
 	 * Updates the main panel
-	 ****************************************/
+	 ****************************************************************/
 	public void update() {
 		for (CheckoutPanel panel : this.checkoutPanels) {
 			final Person person = panel.getCheckout().getPerson();
@@ -105,18 +116,26 @@ public class MainPanel extends JPanel implements QueueListener, ItemListener {
 		}
 	}
 
-	@Override
+	/*****************************************************************
+	 * Updates icon in line for Q
+	 ****************************************************************/
 	public void onUpdateQueue(List<PersonType> line) {
 		System.out.println("Current queue: ");
 		line.forEach(System.out::print);
 	}
 
-	@Override
+	/*****************************************************************
+	 * Display when person leaves line
+	 * @param index Spot in which person left
+	 ****************************************************************/
 	public void onPersonLeaveQueue(int index) {
 		System.out.println("Person left the Queue! at index: " + index);
 	}
 
-    @Override
+	/*****************************************************************
+	 * Update if checkbox is checked out not
+	 * @param e event listener
+	 ****************************************************************/
     public void itemStateChanged(ItemEvent e) {
         for (int i = 0; i < 5; i++) {
             if(checkoutCheckbox[i].isSelected()){
@@ -128,16 +147,22 @@ public class MainPanel extends JPanel implements QueueListener, ItemListener {
         }
     }
 
-    /*****************************************
-	 * The Jpanel that represents a checkout
-	 ****************************************/
+    /*****************************************************************
+	 * JPanel represents a checkout
+	 ****************************************************************/
 	private static final class CheckoutPanel extends JPanel implements ItemListener {
 		
 		private Checkout checkout;
 		private String title;
 		private Icon icon;
 		private JCheckBox checkoutCheckbox;
-		
+
+		/***************************************************************
+		 * CheckoutPanel initialization 
+		 * @param checkout checkout index
+		 * @param title name of checkout
+		 * @param icon type of icon
+		 **************************************************************/
 		public CheckoutPanel(Checkout checkout, String title, Icon icon) {
 			this.checkout = checkout;
 			this.title = title;
@@ -147,48 +172,55 @@ public class MainPanel extends JPanel implements QueueListener, ItemListener {
 			checkoutCheckbox.addItemListener(this);
 		}
 		
-		/*****************************************
-		 * Getter for property 'icon'.
+		/***************************************************************
+		 *  Getter for property 'icon'.
 		 *
 		 * @return Value for property 'icon'.
-		 ****************************************/
+		 **************************************************************/
 		public Icon getIcon() {
 			return icon;
 		}
-		
-		/*****************************************
-		 * Getter for property 'title'.
+
+		/***************************************************************
+		 *  Getter for property 'title'.
 		 *
 		 * @return Value for property 'title'.
-		 ****************************************/
+		 **************************************************************/
 		public String getTitle() {
 			return title;
 		}
 		
-		/*****************************************
+		/****************************************************************
 		 * Setter for property 'icon'.
 		 *
 		 * @param icon Value to set for property 'icon'.
-		 ****************************************/
+		 ****************************************************************/
 		void setIcon(Icon icon) {
 			this.icon = icon;
 		}
 		
-		/*****************************************
+		/***************************************************************
 		 * Setter for property 'title'.
 		 *
 		 * @param title Value to set for property 'title'.
-		 ****************************************/
+		 ***************************************************************/
 		public void setTitle(String title) {
 			this.title = title;
 		}
 		
+		/***************************************************************
+		 * Getter for checkout
+		 * @return checkout type of checkout
+		 **************************************************************/
 		public Checkout getCheckout() {
 			return checkout;
 		}
 
 
-        @Override
+		/***************************************************************
+		 * Checks status of check box
+		 * @param e event listener
+		 **************************************************************/
         public void itemStateChanged(ItemEvent e) {
             if(checkoutCheckbox.isSelected()){
                 checkoutCheckbox.setForeground(Color.GREEN);
@@ -199,13 +231,23 @@ public class MainPanel extends JPanel implements QueueListener, ItemListener {
         }
     }
 
+	/*******************************************************************
+	 * Representation of Eatery
+	 ******************************************************************/
     private static final class EateryPanel extends JPanel implements ItemListener {
 
         private Eatery eatery;
         private String title;
         private Icon[] icon;
         private JCheckBox eateryCheckbox;
+        
 
+		/**************************************************************
+		 * Initialization of eateries
+		 * @param eatery index of eatery
+		 * @param title name of eatery
+		 * @param icon icon representation of eatery
+		 *************************************************************/
         public EateryPanel(Eatery eatery, String title, Icon[] icon) {
             this.eatery = eatery;
             this.title = title;
@@ -215,48 +257,55 @@ public class MainPanel extends JPanel implements QueueListener, ItemListener {
             eateryCheckbox.addItemListener(this);
         }
 
-        /*****************************************
+        /**************************************************************
          * Getter for property 'icon'.
          *
          * @return Value for property 'icon'.
-         ****************************************/
+         *************************************************************/
         public Icon[] getIcon() {
             return icon;
         }
 
-        /*****************************************
+        /*************************************************************
          * Getter for property 'title'.
          *
          * @return Value for property 'title'.
-         ****************************************/
+         ************************************************************/
         public String getTitle() {
             return title;
         }
 
-        /*****************************************
+        /************************************************************
          * Setter for property 'icon'.
          *
          * @param icon Value to set for property 'icon'.
-         ****************************************/
+         ***********************************************************/
         void setIcon(Icon[] icon) {
             this.icon = icon;
         }
 
-        /*****************************************
+        /***********************************************************
          * Setter for property 'title'.
          *
          * @param title Value to set for property 'title'.
-         ****************************************/
+         ************************************************************/
         public void setTitle(String title) {
             this.title = title;
         }
 
+		/*************************************************************
+		 * Getter of eatery
+		 * @return eatery instance of eatery
+		 ************************************************************/
         public Eatery getEatery() {
             return eatery;
         }
 
 
-        @Override
+        /*************************************************************
+		 * Checks state of box and changes formatting
+		 * @param e event listener
+		 ************************************************************/
         public void itemStateChanged(ItemEvent e) {
             if(eateryCheckbox.isSelected()){
                 eateryCheckbox.setForeground(Color.GREEN);

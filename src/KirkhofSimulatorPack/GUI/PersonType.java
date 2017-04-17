@@ -6,15 +6,21 @@ import KirkhofSimulatorPack.people.RegularPerson;
 import KirkhofSimulatorPack.people.SpecialNeedsPerson;
 
 import javax.swing.*;
-
-/**
- * Created by Chad on 4/12/2017.
- */
+/**********************************************************************
+ * Class to find what type of person a given person is. 
+ * @author Preston, Alex, Jessica, Chad
+ * @version 4/18/17
+ *********************************************************************/
 public enum PersonType {
     REGULAR,
     DISABLED,
     HURRIED;
-
+	/*****************************************************************
+	 * Getter for type of person
+	 * @param person person at given time
+	 * @return type of person
+	 * @throws IllegalStateException if person is not a type 
+	 ****************************************************************/
     public static PersonType getType(Person person) {
         if(person instanceof RegularPerson) {
             return REGULAR;
@@ -27,7 +33,11 @@ public enum PersonType {
     }
 
 
-    @Override
+    /******************************************************************
+     * Method to convert type into string
+     * @return string of person type
+     * @throws IllegalStateException if person is not a type 
+     *****************************************************************/
     public String toString() {
         switch (this) {
             case REGULAR:
@@ -40,6 +50,11 @@ public enum PersonType {
         throw new IllegalStateException("this shouldn't happen");
     }
 
+    /******************************************************************
+     * Method to get type of icon 
+     * @return icon representation of person
+     * @throws IllegalStateException if person is not a type 
+     *****************************************************************/
     public Icon getIcon() {
         switch (this) {
             case REGULAR:
