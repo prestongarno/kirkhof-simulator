@@ -7,7 +7,7 @@ import javax.swing.*;
 
 /**************************************************************
  *  Special Needs people specifications
- * @author Preston, Chad, Jessica, Alex
+ * @author
  * @version 3/31/17
  **************************************************************/ 
 public class SpecialNeedsPerson extends Person {
@@ -30,15 +30,7 @@ public class SpecialNeedsPerson extends Person {
         super.setCashierTime(time*2);
     }
    
-/**************************************************************
- *  Getter method of icon
- * @return icon of special needs person 
- **************************************************************/ 
-   public Icon getIconRepresentation() {
-      return Util.SPECIAL_NEEDS_PERSON;
-   }
-   
- /**************************************************************
+   /**************************************************************
   *  Method to set leave time to be 2 times as much as a 
   *  regular person
   * @param time average leave time

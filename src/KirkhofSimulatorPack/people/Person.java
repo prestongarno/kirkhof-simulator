@@ -95,9 +95,5 @@ public abstract class Person {
 		this.cashierTime = time;
 	}
 
-	/******************************************************************
-	 * @return Returns an Icon representation of the person
-	 *****************************************************************/
-	public abstract Icon getIconRepresentation();
 }
 

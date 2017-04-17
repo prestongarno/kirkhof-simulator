@@ -1,20 +1,20 @@
 package KirkhofSimulatorPack.GUI;
 
+import KirkhofSimulatorPack.Interfaces.QueueListener;
 import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
 import KirkhofSimulatorPack.people.Person;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 
 /** **************************************************
- * kirkhof-simulator - KirkhofSimulatorPack.GUI 
- * Setup of GUI components for Main Q
- *  
- * Preston, Alex, Jessica, Chad
- * @version 4/18/17
+ * kirkhof-simulator - KirkhofSimulatorPack.GUI - by Preston Garno
+ *
  * ***************************************************/
-public class MainQueueDisplay extends JPanel {
+public class MainQueueDisplay extends JPanel implements QueueListener {
 	
 	private JPanel LINE;
 	
@@ -28,28 +28,16 @@ public class MainQueueDisplay extends JPanel {
 
 	}
 	
-	/*****************************************
-	 * Updates the image of the people in line
-	 * @param queue person at given point
-	 ****************************************/
-	public void updateQueue(CustomLinkedList<Person> queue) {
-		
-		int i = 0;
-		while (i < LINE.getComponentCount()) {
-			
-			Icon current = i < queue.size() ? queue.get(i).getIconRepresentation() : null;
-			
-			final Component existing = LINE.getComponent(i);
-			
-			if(!existing.equals(current)){
-				((JLabel) existing).setIcon(current);
-			}
-			i++;
-		}
-		
-		while (i++ < queue.size()) {
-			LINE.add(new JLabel(queue.get(i).getIconRepresentation()));
+	@Override
+	public void onUpdateQueue(List<PersonType> line) {
+		for (PersonType t : line) {
+			// TODO: 4/16/17 update from here
+            JLabel label = new JLabel(t.getIcon());
 		}
 	}
-	
+
+	@Override
+	public void onPersonLeaveQueue(int index) {
+
+	}
 }

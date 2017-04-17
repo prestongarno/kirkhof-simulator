@@ -1,65 +1,53 @@
 package KirkhofSimulatorPack;
 
+import KirkhofSimulatorPack.Interfaces.QueueListener;
 import KirkhofSimulatorPack.people.Person;
 
 import java.lang.*;
+import java.util.Collections;
 
-/*********************************************************************
- * Class to represent checkout for simulation
- * @author Jessica, Chad, Preston, Alex
- * @version 4/17/17
- ********************************************************************/
-public class Checkout<K extends Person> implements ClockListener {
-    //add constructor here, this class should be stupid
-    //it can't see into the main queue
-    //just holds a value 0 for empty and 1 for a person in checkout
+/**
+ * Created by Chad on 4/8/2017.
+ */
+public class Checkout extends Venue implements ClockListener {
 
-	/**time of clock when next person is added/removed*/
     int timeOfNextEvent;
 
-    /**Representation of person*/
-    K person;
+    Person person;
 
- 
-    /*****************************************************************
-     * Constructor method for checkout class
-     ****************************************************************/
-	public Checkout(){
+    /** the panel object
+     */
+    private QueueListener listener;
+
+	/** true if this location is open
+	 */
+	private boolean enabled;
+
+    public Checkout(String name){
+    	super(name);
+    	this.enabled = true;
+    	this.maxQlength = 1;
     }
-	
-	/*****************************************************************
-     * Method to set next person
-     * @param person current person at checkout
-     * @throws IllegalArgumentException person does not exist
-     ****************************************************************/
-    public void setPerson(K person) {
+
+
+    public void setPerson(Person person) {
         if(person != null) throw new IllegalArgumentException();
         this.person = person;
         timeOfNextEvent += person.getCashierTime();
     }
 
-    /*****************************************************************
-     * Check if checkout is open
-     * @return status of checkout true/false
-     ****************************************************************/
     public boolean isOpen() {
         return this.person == null;
     }
 
-    /*****************************************************************
-     * Method called by the clock to check for next event time
-     * @param tick current time of clock
-     ****************************************************************/
+    @Override
     public void event(int tick) {
         if(tick >= timeOfNextEvent) {
             this.person = null;
         }
     }
-    /*****************************************************************
-     * Getter for person
-     * @return person person at checkout
-     ****************************************************************/
-    public K getPerson() {
+    
+    public Person getPerson() {
         return person;
     }
 }

@@ -1,20 +1,22 @@
 package KirkhofSimulatorPack;
 
+import KirkhofSimulatorPack.GUI.EateryCheckoutPanel;
 import KirkhofSimulatorPack.GUI.GUI;
 import KirkhofSimulatorPack.GUI.MainPanel;
+import KirkhofSimulatorPack.Interfaces.QueueListener;
 import KirkhofSimulatorPack.people.PersonProducer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
-/*********************************************************************
- * Controls GUI class initialization
- * @author Preston, Jessica, Chad, Alex
- * @version 4/17/17
- ********************************************************************/
-public class Controller {
+/**
+ * Created by preston on 4/12/17.
+ */
+public class Controller implements ClockListener {
 
     /**Number of initial eateries*/
 	private static int numEateries=5;
@@ -34,19 +36,14 @@ public class Controller {
 	/**time until next person is added*/
 	private static int numOfTicksNextPerson=20;
 
-	/**gui of type GUI*/
     private final GUI gui;
-    
-    /**variable of type PersonProducer*/
     private final PersonProducer producer;
-    
-    /**variable of type clock*/
     private final Clock clock;
 
-	/*****************************************************************
-	 * Main method for GUI initialization 
-	 * @param args argument for main
-	 ****************************************************************/
+    /** the list of eateries + checkouts
+     */
+    private final List<Venue> locations;
+
     public static void main(String[] args) {
 
         MainPanel mainPanel = new MainPanel();
@@ -54,32 +51,6 @@ public class Controller {
         GUI gui = new GUI(mainPanel);
 
         Clock clk = new Clock();
-        Eatery eateryArray[]=new Eatery[numEateries];
-
-        MainQueue mainQ = new MainQueue();
-
-        for (int i = 0; i < eateryArray.length; i++) {
-            eateryArray[i] = new Eatery(mainQ);
-        }
-
-        Checkout checkoutArray[] = new Checkout[numCheckouts];
-
-        PersonProducer newSim = new PersonProducer(eateryArray,
-                numOfTicksNextPerson, averageEateryTime,
-                averageCashierTime, averageLeaveTime);
-
-        clk.add(newSim);
-
-        for(int i=0; i<numEateries;i++){
-            clk.add(eateryArray[i]);
-        }
-
-        clk.add(mainQ);
-
-        mainQ.registerStatsListener(gui);
-        mainQ.registerQueueListener(mainPanel);
-
-        new Controller(gui, newSim, clk);
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -89,22 +60,49 @@ public class Controller {
         frame.setVisible(true);
     }
 
-	/*****************************************************************
-	 * Set up constructor for controller class
-	 * @param gui GUI implementation
-	 * @param producer Sets overall stats of sim
-	 * @param clock Time source
-	 ****************************************************************/
+
     Controller(GUI gui, PersonProducer producer, Clock clock) {
         this.gui = gui;
         this.producer = producer;
         this.clock = clock;
         setButtons();
+
+        MainQueue mainQ = MainQueue.getInstance();
+        MainPanel panel = gui.getMainPanel();
+
+        // list of eaterycheckpanels half of them checkouts
+        this.locations = new ArrayList<>(10);
+
+        //================================================
+        /* create panels and respective eateries and register the listeners */
+        for (int i = 0; i < 5; i++) {
+            Eatery ea = new Eatery("Eatery $" + i);
+            QueueListener lstnr = panel.addEatery(ea.getName());
+            ea.addListener(lstnr);
+
+            Checkout checkout = new Checkout("Checkout $" + i);
+            lstnr = panel.addCheckout(checkout.getName());
+            checkout.addListener(lstnr);
+            locations.add(ea);
+            locations.add(checkout);
+        }
+        //================================================
+
+
+        PersonProducer newSim = new PersonProducer(
+              locations.stream().filter(venue -> venue instanceof Eatery).toArray(Eatery[]::new),
+                numOfTicksNextPerson, averageEateryTime,
+                averageCashierTime, averageLeaveTime);
+
+        // add all of the listeners
+        clock.add(mainQ);
+        clock.add(newSim);
+
+        mainQ.registerQueueListener(gui.getMainPanel().getMainQDisplay());
+
+        new Controller(gui, newSim, clock);
     }
 
-	/*****************************************************************
-	 * Sets buttons to start and stop the clock
-	 ****************************************************************/
     private void setButtons() {
 
         this.gui.setStartButtonListener(new ActionListener() {
@@ -137,5 +135,10 @@ public class Controller {
                     averageCashierTime, averageLeaveTime);
             clk.add(newSim);
         }*/
+    }
+
+
+    @Override
+    public void event(int tick) {
     }
 }
