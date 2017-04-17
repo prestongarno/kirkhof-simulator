@@ -5,20 +5,31 @@ import KirkhofSimulatorPack.GUI.Util;
 import javax.swing.*;
 
 
-/**
- * Created by Alex on 3/26/2017.
- */
+/**************************************************************
+ *  Class specifications of regular person
+ * @author Jessica, Chad, Alex, Preston
+ **************************************************************/
 public class RegularPerson extends Person {
 
     /**************************************************************
      * Setter methods
-     * @param time The persons eatery/cashier/leave time
+     * @param time The persons eatery time
      **************************************************************/
-    public void setEateryTime(double time) { super.setEateryTime(time); }
-
-    public void setCashierTime(double time) { super.setCashierTime(time); }
+    public void setEateryTime(double time) {
+    	super.setEateryTime(time); 
+    	}
+    /**************************************************************
+     * Setter methods
+     * @param time The persons cashier time
+     **************************************************************/
+    public void setCashierTime(double time) { 
+    	super.setCashierTime(time); 
+    	}
     
-    @Override
+    /**************************************************************
+     * Getter method
+     * @return  icon representation
+     **************************************************************/
     public Icon getIconRepresentation() {
         return Util.REGULAR_PERSON;
     }

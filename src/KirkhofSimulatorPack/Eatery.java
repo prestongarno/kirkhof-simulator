@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * @author Chad, Jessica, Preston, Alex
  * @version 4/1/17
  **********************************************************************/
-
 public class Eatery implements ClockListener {
 
 

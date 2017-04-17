@@ -7,6 +7,8 @@ import javax.swing.*;
 
 /**************************************************************
  * Set specifications for limited time person
+ * @author Jessica, Chad, Alex, Preston
+ * @version 4/17/17
  **************************************************************/
 public class LimitedTimePerson extends Person {
 
@@ -19,7 +21,10 @@ public class LimitedTimePerson extends Person {
         super.setEateryTime(time*.5);
     }
    
-   @Override
+    /***********************************************************
+     *  Method to get icon 
+     * @return icon of hurried person
+     ***********************************************************/
    public Icon getIconRepresentation() {
       return Util.RUNNING_PERSON;
    }

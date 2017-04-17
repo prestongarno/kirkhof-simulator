@@ -16,7 +16,7 @@ public abstract class Person {
 	/**Time it takes to order food*/
 	protected double eateryTime;
 	
-	/**ime it takes to checkout*/
+	/**time it takes to checkout*/
 	protected double cashierTime;
 	
 	/**time it takes before the person leaves without service*/

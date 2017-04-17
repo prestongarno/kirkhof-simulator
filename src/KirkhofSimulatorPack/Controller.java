@@ -9,9 +9,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by preston on 4/12/17.
- */
+/*********************************************************************
+ * Controls GUI class initialization
+ * @author Preston, Jessica, Chad, Alex
+ * @version 4/17/17
+ ********************************************************************/
 public class Controller {
 
     /**Number of initial eateries*/
@@ -32,11 +34,19 @@ public class Controller {
 	/**time until next person is added*/
 	private static int numOfTicksNextPerson=20;
 
-
+	/**gui of type GUI*/
     private final GUI gui;
+    
+    /**variable of type PersonProducer*/
     private final PersonProducer producer;
+    
+    /**variable of type clock*/
     private final Clock clock;
 
+	/*****************************************************************
+	 * Main method for GUI initialization 
+	 * @param args argument for main
+	 ****************************************************************/
     public static void main(String[] args) {
 
         MainPanel mainPanel = new MainPanel();
@@ -79,7 +89,12 @@ public class Controller {
         frame.setVisible(true);
     }
 
-
+	/*****************************************************************
+	 * Set up constructor for controller class
+	 * @param gui GUI implementation
+	 * @param producer Sets overall stats of sim
+	 * @param clock Time source
+	 ****************************************************************/
     Controller(GUI gui, PersonProducer producer, Clock clock) {
         this.gui = gui;
         this.producer = producer;
@@ -87,6 +102,9 @@ public class Controller {
         setButtons();
     }
 
+	/*****************************************************************
+	 * Sets buttons to start and stop the clock
+	 ****************************************************************/
     private void setButtons() {
 
         this.gui.setStartButtonListener(new ActionListener() {
