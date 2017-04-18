@@ -25,16 +25,16 @@ public class Controller implements ClockListener {
 	private static int numCheckouts=5;
 
 	/**Average eatery time*/
-	private static int averageEateryTime=20;
+	private static int averageEateryTime=5;
 
 	/**Average Cashier time*/
-	private static int averageCashierTime=20;
+	private static int averageCashierTime=1;
 
 	/**Average Leave time*/
 	private static int averageLeaveTime=20;
 
 	/**time until next person is added*/
-	private static int numOfTicksNextPerson=20;
+	private static int numOfTicksNextPerson=1;
 
     private final GUI gui;
     private final PersonProducer producer;
@@ -80,10 +80,12 @@ public class Controller implements ClockListener {
             Eatery ea = new Eatery("Eatery $" + i);
             QueueListener lstnr = panel.addEatery(ea.getName());
             ea.addListener(lstnr);
+            this.clock.add(ea);
 
             Checkout checkout = new Checkout("Checkout $" + i);
             lstnr = panel.addCheckout(checkout.getName());
             checkout.addListener(lstnr);
+            this.clock.add(ea);
             locations.add(ea);
             locations.add(checkout);
         }

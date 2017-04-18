@@ -92,10 +92,6 @@ public class MainQueue implements ClockListener {
 				QUEUE.remove(p);
 			}
 		}
-
-		for (QueueListener q : QUEUE_LISTENERS) {
-			q.onUpdateQueue(typesQueue);
-		}
 	}
 
 

@@ -1,16 +1,17 @@
 package KirkhofSimulatorPack.GUI;
 
-import KirkhofSimulatorPack.Eatery;
 import KirkhofSimulatorPack.Interfaces.QueueListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.stream.Collectors;
 
 /**
  * Created by preston on 4/16/17.
@@ -21,9 +22,9 @@ public final class EateryCheckoutPanel extends JPanel implements ItemListener, Q
     private static final int PREF_HGHT = 140;
     /** the Jpanel that holds all of the icons for each person
      */
-    private final JPanel line;
+    private final JPanel HOLDER;
 
-    //private final List<JLabel> icons; <-- just recreate labels for now each time
+    private final List<JLabel> icons;
     private final JLabel titleLabel;
     private String title;
     private JCheckBox eateryCheckbox;
@@ -41,8 +42,8 @@ public final class EateryCheckoutPanel extends JPanel implements ItemListener, Q
         titleLabel = new JLabel(title);
         this.add(titleLabel);
         this.add(eateryCheckbox, BorderLayout.PAGE_END);
-        line = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        this.add(line);
+        HOLDER = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        this.add(HOLDER);
         //icons = new LinkedList<>();
 
         // add border for layout changes
@@ -56,6 +57,7 @@ public final class EateryCheckoutPanel extends JPanel implements ItemListener, Q
         this.setFocusable(false);
         this.setOpaque(true);
         this.setVisible(true);
+        icons = new ArrayList<>();
     }
 
     /*****************************************
@@ -85,19 +87,42 @@ public final class EateryCheckoutPanel extends JPanel implements ItemListener, Q
         }
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
-    public void onUpdateQueue(List<PersonType> people) {
-        // update the list of jlabels here
-        this.line.removeAll();
-        for (PersonType p : people) {
-            line.add(new JLabel(p.getIcon()));
+    public void onUpdateQueue(List<PersonType> line) {
+        SwingUtilities.invokeLater(() -> {
+
+            // get an iterator of icons
+            Iterator<Icon> it = line.stream().map(PersonType::getIcon)
+                    .collect(Collectors.toCollection(ArrayList::new)).iterator();
+            this.updateIcons(it);
+        });
+    }
+
+    private void updateIcons(Iterator<Icon> it) {
+        // update all of the existing icons
+        HOLDER.removeAll();
+        int i;
+        for (i = 0; i < icons.size() && it.hasNext(); i++) {
+            ((JLabel) this.HOLDER.getComponent(i)).setIcon(it.next());
+            it.remove();
         }
 
+        // if the updated queue is small
+        if(!it.hasNext()) {
+            while(i < HOLDER.getComponentCount()) {
+                HOLDER.remove(i++);
+            }
+        }
+        // add all remaining icons in the iterator
+        while(it.hasNext() /*&& i < icons.getComponentCount()*/) {
+            HOLDER.add(new JLabel(it.next()));
+            it.remove();
+        }
     }
 
     @Override
     public void onPersonLeaveQueue(int index) {
-        line.remove(index);
-
+            icons.remove(index);
     }
 }

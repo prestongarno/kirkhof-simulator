@@ -19,28 +19,6 @@ public class GUI {
 	//Constants
 	private static final Dimension MAX_TEXT_FIELD = new Dimension(200,30);
 
-	private Clock clk;
-
-	private Eatery[] eateryArray;
-
-	/**Number of initial eateries*/
-	private int numEateries=5;
-
-	/**Number of initial checkouts*/
-	private int numCheckouts=5;
-	
-	/**Average eatery time*/
-	private int averageEateryTime=20;
-	
-	/**Average Cashier time*/
-	private int averageCashierTime=20;
-	
-	/**Average Leave time*/
-	private int averageLeaveTime=20;
-	
-	/**time until next person is added*/
-	private int numOfTicksNextPerson=20;
-	
     /**panel for the GUI elements to be placed on*/
     private JPanel panel;
 

@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
  ****************************************/
 public abstract class Venue implements ClockListener {
 
-	// TODO: 4/12/17 use this arraylist instead of person variable for allowing for a line
 	/**The line for the venue*/
 	protected ArrayList<Person> Q;
 

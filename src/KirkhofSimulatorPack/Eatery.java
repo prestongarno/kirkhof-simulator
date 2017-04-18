@@ -37,13 +37,15 @@ public class Eatery extends Venue implements ClockListener {
 	 ******************************************************************/
 	@Override
 	public void event(int tick) {
+	    int debugLoop = 0;
+			System.out.println(this);
 		Person person = null;
 
 		if (tick >= timeOfNextEvent) {
 
 			if (Q.size() >= 1) {
 				timeOfNextEvent = tick
-						+ (int) (person.getEateryTime() + 1);
+						+ (int) (Q.get(super.Q.size() - 1).getEateryTime() + 1);
 				// this is where you would send on the person to the
 				// next listeners.
                 if(timeOfNextEvent >= tick) {
@@ -53,15 +55,19 @@ public class Eatery extends Venue implements ClockListener {
 
 
 			}
-			for (int i = 0; i < Q.size(); i++) {
+			for (int i = 0; i < Q.size()-1; i++) {
 
-				if (Q.get(i).getLeaveTime() >= tick - Q.get(i).getTickTime()) {
+				if (Q.get(i).getLeaveTime() > tick - Q.get(i).getTickTime()) {
 					//if the person exceeds waiting time, remove from
 					//simulation
 					Q.remove(i);
 					totalPeopleLeft++;
 					int finalI = i;
-					this.listeners.forEach(listener -> listener.onPersonLeaveQueue(finalI));
+					try {
+						this.listeners.forEach(listener -> listener.onPersonLeaveQueue(finalI));
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
 
 			}
@@ -72,8 +78,14 @@ public class Eatery extends Venue implements ClockListener {
 				person = null; // I have send the person on.
 				storeTick=tick;
 			}
-
-
 		}
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder(this.Q.size());
+		Q.forEach(person -> sb.append("\n" + person));
+
+		return name + "\n====================" + sb.toString();
 	}
 }
