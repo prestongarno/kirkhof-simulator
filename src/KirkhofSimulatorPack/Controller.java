@@ -104,20 +104,9 @@ public class Controller implements ClockListener {
 
     private void setButtons() {
 
-        this.gui.setStartButtonListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clock.startClock();
-            }
-        });
+        this.gui.setStartButtonListener(e -> clock.startClock());
 
-        this.gui.setStopButtonListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clock.stopClock();
-            }
-        });
-
+        this.gui.setStopButtonListener(e -> clock.stopClock());
 
         /*if(e.getSource()==updateInfo){
             clk.stopClock();
