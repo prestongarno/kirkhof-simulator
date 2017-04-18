@@ -272,9 +272,20 @@ public class GUI {
 	    maxQlength.setText("Max length of the Q: ");
     }
 
+    public String[] getSettings() {
+    	String eatTime = this.avgEatTime.getText();
+		 String cashTime = this.avgCashTime.getText();
+		 String leaveTime = this.avgEatTime.getText();
+		 String numTicksNext = this.numTicksNext.getText();
+		 return new String[]{eatTime, cashTime, leaveTime, numTicksNext};
+	 }
 
     public MainPanel getMainPanel() {
     	return this.mainPanel;
+	 }
+
+	 public void setSettingsListener(ActionListener listener) {
+    	this.updateInfo.addActionListener(listener);
 	 }
     
     public void setStartButtonListener(ActionListener listener) {

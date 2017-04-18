@@ -7,8 +7,7 @@ import java.awt.*;
 
 public class MainPanel extends JPanel {
 
-	private static final Dimension SIDE_PANEL_SIZE = new Dimension(400,300);
-	private static final Dimension MAIN_PANEL_SIZE = new Dimension(500,1000);
+	private static final Dimension SIDE_PANEL_SIZE = new Dimension(400,400);
 
 	private final MainQueueDisplay MAIN_QUEUE;
 	private final JPanel EATERIES;
@@ -19,10 +18,11 @@ public class MainPanel extends JPanel {
 	 ****************************************/
 	public MainPanel() {
 		// this is the the panel that holds all subpanels
-		setLayout(new BorderLayout(0, 0));
+		final GridLayout mainLayout = new GridLayout(1, 3);
+		setLayout(mainLayout);
 		
 		//The layout for the eateries and the checkout
-        final GridLayout sidePanelLayouts = new GridLayout(5, 1);
+        final GridLayout sidePanelLayouts = new GridLayout(5,1,10,10);
 
 		//JPanel that holds the Checkouts
         CHECKOUTS = new JPanel(sidePanelLayouts);
@@ -31,13 +31,11 @@ public class MainPanel extends JPanel {
 		EATERIES = new JPanel(sidePanelLayouts);
 		MAIN_QUEUE = new MainQueueDisplay();
 
-		this.add(EATERIES, BorderLayout.WEST);
-		this.add(CHECKOUTS, BorderLayout.EAST);
-		this.add(MAIN_QUEUE, BorderLayout.CENTER);
-		EATERIES.setSize(SIDE_PANEL_SIZE);
+		this.add(EATERIES);
+		this.add(MAIN_QUEUE);
+		this.add(CHECKOUTS);
 		EATERIES.setPreferredSize(SIDE_PANEL_SIZE);
 		CHECKOUTS.setPreferredSize(SIDE_PANEL_SIZE);
-		CHECKOUTS.setSize(SIDE_PANEL_SIZE);
 		EATERIES.setOpaque(false);
 		CHECKOUTS.setOpaque(false);
 		MAIN_QUEUE.setOpaque(false);

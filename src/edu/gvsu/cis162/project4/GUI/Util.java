@@ -53,7 +53,6 @@ public final class Util {
 	 ****************************************/
 	public static Icon loadIcon(String resourceName, String description) {
 		final ImageIcon icon;
-		System.out.println(Util.class.getClassLoader());
 		try {
 			System.out.println(new File(".").getCanonicalPath());
 			Image img = ImageIO.read(new File("res/" + resourceName)).getScaledInstance(ICON_WIDTH, ICON_HEIGHT, 8);

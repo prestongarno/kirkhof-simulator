@@ -54,7 +54,7 @@ public class Eatery extends Venue implements ClockListener {
 			if (Q.size() > 0) {
 				// this is where you would send on the person to th;
 				// next listeners.
-				if (timeOfNextEvent >= tick) {
+				if (tick > timeOfNextEvent) {
 					MainQueue.getInstance().add(Q.remove(0));
 					for (QueueListener qlstnr : this.listeners) {
 						qlstnr.onUpdateQueue(
@@ -63,8 +63,6 @@ public class Eatery extends Venue implements ClockListener {
 					}
 				}
 				completed++;
-
-
 			}
 			for (int i = 0; i < Q.size() - 1; i++) {
 

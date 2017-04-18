@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Created by preston on 4/12/17.
@@ -75,12 +76,12 @@ public class Controller implements ClockListener {
         //================================================
         /* create panels and respective eateries and register the listeners */
         for (int i = 0; i < 5; i++) {
-            Eatery ea = new Eatery("Eatery $" + i);
+            Eatery ea = new Eatery("Eatery " + i);
             QueueListener lstnr = panel.addEatery(ea.getName());
             ea.addListener(lstnr);
             this.clock.add(ea);
 
-            Checkout checkout = new Checkout("Checkout $" + i);
+            Checkout checkout = new Checkout("Checkout " + i);
             lstnr = panel.addCheckout(checkout.getName());
             checkout.addListener(lstnr);
             this.clock.add(ea);
@@ -90,8 +91,14 @@ public class Controller implements ClockListener {
         //================================================
 
 
-        this.producer = new PersonProducer(
-              locations.stream().filter(venue -> venue instanceof Eatery).toArray(Eatery[]::new),
+		 List<Venue> list = new ArrayList<>();
+		 for (Venue venue : locations) {
+			 if (venue instanceof Eatery) {
+				 list.add(venue);
+			 }
+		 }
+		 this.producer = new PersonProducer(
+				 list.toArray(new Eatery[list.size()]),
                 numOfTicksNextPerson, averageEateryTime,
                 averageCashierTime, averageLeaveTime);
 
@@ -109,21 +116,23 @@ public class Controller implements ClockListener {
 
         this.gui.setStopButtonListener(e -> clock.stopClock());
 
-        /*if(e.getSource()==updateInfo){
-            clk.stopClock();
-            if(!avgEatTime.getText().isEmpty())
-                averageEateryTime=Integer.parseInt(avgEatTime.getText());
-            if(!avgLeaveTime.getText().isEmpty())
-                averageLeaveTime=Integer.parseInt(avgLeaveTime.getText());
-            if(!avgCashTime.getText().isEmpty())
-                averageCashierTime=Integer.parseInt(avgCashTime.getText());
-            if(!numTicksNext.getText().isEmpty())
-                numOfTicksNextPerson=Integer.parseInt(numTicksNext.getText());
-            PersonProducer newSim = new PersonProducer(eateryArray,
-                    numOfTicksNextPerson, averageEateryTime,
-                    averageCashierTime, averageLeaveTime);
-            clk.add(newSim);
-        }*/
+        this.gui.setSettingsListener(e -> {
+			  try {
+				  String[] val = this.gui.getSettings();
+				  int eatTime = Integer.parseInt(val[0]);
+				  int leave = Integer.parseInt(val[1]);
+				  int cash = Integer.parseInt(val[2]);
+				  int ticks = Integer.parseInt(val[3]);
+				  this.clock.stopClock();
+				  producer.setAverageEateryTime(eatTime);
+				  producer.setAverageLeaveTime(leave);
+				  producer.setAverageCashierTime(cash);
+				  producer.setNumOfTicksNextPerson(ticks);
+				  this.clock.stopClock();
+			  } catch (NumberFormatException e1) {
+			  }
+
+		  });
     }
 
 

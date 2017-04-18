@@ -18,7 +18,7 @@ public class Clock {
 	private int MAX = 100;
 	
 	/**creates the clock*/
-	private final Timer CLOCK_TIMER;
+	private Timer CLOCK_TIMER;
 	
 	/**Current time of the clock*/
 	private int currentTime;
@@ -39,6 +39,14 @@ public class Clock {
 	 *****************************************************************/
 	public void startClock() {
 		CLOCK_TIMER.start();
+	}
+
+	public void restart() {
+		this.CLOCK_TIMER.stop();
+		this.CLOCK_TIMER = new Timer(500, e -> {
+			Clock.this.tick(currentTime++);
+			System.out.println("TICK - " + currentTime);
+		});
 	}
 	/******************************************************************
 	 * Adds listeners to the clock
@@ -96,9 +104,7 @@ public class Clock {
 	 *****************************************************************/
 	public void stopClock() {
 		CLOCK_TIMER.stop();
-		/*for (ActionListener listener : CLOCK_TIMER.getActionListeners()) {
-			CLOCK_TIMER.removeActionListener(listener);
-		}*/
+		restart();
 	}
 
 	/******************************************************************

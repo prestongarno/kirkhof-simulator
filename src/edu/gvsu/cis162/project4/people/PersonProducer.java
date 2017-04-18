@@ -141,5 +141,49 @@ public class PersonProducer implements ClockListener {
 		//if ranges fail, send people to first eatery
 		return 0;
 	}
-	
+
+	public void setNextPerson(int nextPerson) {
+		this.nextPerson = nextPerson;
+	}
+
+	public Eatery[] getEateryA() {
+		return eateryA;
+	}
+
+	public void setEateryA(Eatery[] eateryA) {
+		this.eateryA = eateryA;
+	}
+
+	public int getNumOfTicksNextPerson() {
+		return numOfTicksNextPerson;
+	}
+
+	public void setNumOfTicksNextPerson(int numOfTicksNextPerson) {
+		this.numOfTicksNextPerson = numOfTicksNextPerson;
+	}
+
+	public int getAverageEateryTime() {
+		return averageEateryTime;
+	}
+
+	public void setAverageEateryTime(int averageEateryTime) {
+		this.averageEateryTime = averageEateryTime;
+	}
+
+	public int getAverageCashierTime() {
+		return averageCashierTime;
+	}
+
+	public void setAverageCashierTime(int averageCashierTime) {
+		this.averageCashierTime = averageCashierTime;
+	}
+
+	public int getAverageLeaveTime() {
+		return averageLeaveTime;
+	}
+
+	public void setAverageLeaveTime(int averageLeaveTime) {
+		this.averageLeaveTime = averageLeaveTime;
+	}
+
 }

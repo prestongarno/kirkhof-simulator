@@ -54,7 +54,7 @@ public final class EateryCheckoutPanel extends JPanel implements ItemListener, Q
 		HOLDER.setVisible(true);
 
 		// add border for layout changes
-		Border border = BorderFactory.createLineBorder(Color.black);
+		Border border = BorderFactory.createLoweredBevelBorder();
 		this.setBorder(border);
 
 		// swing configuration stuff
@@ -91,41 +91,40 @@ public final class EateryCheckoutPanel extends JPanel implements ItemListener, Q
 		}
 	}
 
-	@SuppressWarnings("Duplicates")
 	@Override
 	public void onUpdateQueue(List<PersonType> line) {
+		HOLDER.setPreferredSize(new Dimension(getParent().getWidth(),
+				getParent().getHeight() - 100));
+		HOLDER.removeAll();
 		int i;
 		for (i = 0; i < line.size(); i++) {
-			JLabel label;
-			if (i > HOLDER.getComponentCount()) {
-				label = (JLabel) HOLDER.getComponent(i);
-			} else label = new JLabel();
+			JLabel label = new JLabel();
 
 			switch (line.get(i)) {
 				case REGULAR:
 					label.setIcon(this.regularIc);
+					break;
 				case HURRIED:
 					label.setIcon(this.runningIc);
+					break;
 				case DISABLED:
 					label.setIcon(this.handicapIc);
+					break;
 			}
 			label.setOpaque(false);
 			label.setVisible(true);
-			label.setSize(40, 40);
 			HOLDER.add(label);
-			HOLDER.repaint();
+			HOLDER.revalidate();
 		}
-
-		while (++i < HOLDER.getComponentCount()) {
-			HOLDER.remove(i);
-			HOLDER.repaint();
-		}
+		HOLDER.repaint();
 	}
 
 	@Override
 	public void onPersonLeaveQueue(int index) {
 		if (!icons.isEmpty()) {
-			icons.remove(index);
+			this.HOLDER.remove(index);
+			this.HOLDER.revalidate();
+			this.HOLDER.updateUI();
 		}
 	}
 }

@@ -51,12 +51,10 @@ public class Checkout extends Venue implements ClockListener {
     @Override
     public void event(int tick) {
         if(tick >= timeOfNextEvent) {
-            System.out.println(name + " " + person + tick);
-
             this.person = null;
         }
     }
-    
+
     public Person getPerson() {
         return person;
     }

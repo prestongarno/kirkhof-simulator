@@ -3,6 +3,7 @@ package edu.gvsu.cis162.project4.GUI;
 import edu.gvsu.cis162.project4.Interfaces.QueueListener;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,6 +19,7 @@ public class MainQueueDisplay extends JPanel implements QueueListener {
 
 	//private static final Dimension PREF_SIZE = new Dimension(400, 300);
 	private JPanel HOLDER;
+
 	private final Icon runningIc;
 	private final Icon regularIc;
 	private final Icon handicapIc;
@@ -27,84 +29,65 @@ public class MainQueueDisplay extends JPanel implements QueueListener {
 	 * Makes a mainQueue display
 	 ****************************************/
 	public MainQueueDisplay() {
-		icons = new ArrayList<>();
-		setLayout(new BorderLayout());
-		JLabel title;
-		add(title = new JLabel("Main Queue"), BorderLayout.NORTH);
-		title.setHorizontalAlignment(SwingConstants.CENTER);
 		regularIc = Util.getRegularIcon();
 		runningIc = Util.getRunningIcon();
 		handicapIc = Util.getSpecialNeedsIcon();
-		HOLDER = new JPanel(new FlowLayout());
+		// adding the components to the panel
+		JLabel titleLabel = new JLabel("~ Main Queue ~");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		this.add(titleLabel);
+		titleLabel.setMaximumSize(new Dimension(200, 30));
+		titleLabel.setBorder(BorderFactory.createRaisedSoftBevelBorder());
+		HOLDER = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		this.add(HOLDER);
+		HOLDER.setOpaque(true);
 		HOLDER.setVisible(true);
-		this.add(HOLDER, BorderLayout.CENTER);
+
+		// add border for layout changes
+		Border border = BorderFactory.createLoweredBevelBorder();
+		this.setBorder(border);
+
+		// swing configuration stuff
+		this.setFocusable(false);
+		this.setOpaque(false);
 		this.setVisible(true);
-		this.setPreferredSize(new Dimension(500,400));
+		icons = new ArrayList<>();
 	}
 
-	@SuppressWarnings("Duplicates")
 	@Override
 	public void onUpdateQueue(List<PersonType> line) {
-		int i = 0;
-		while (i++ > line.size()) {
-			JLabel label;
-			if (i > HOLDER.getComponentCount()) {
-				label = (JLabel) HOLDER.getComponent(i);
-			} else label = new JLabel();
+		HOLDER.setPreferredSize(new Dimension(getParent().getWidth(),
+				getParent().getHeight() - 100));
+		HOLDER.removeAll();
+		int i;
+		for (i = 0; i < line.size(); i++) {
+			JLabel label = new JLabel();
 
 			switch (line.get(i)) {
 				case REGULAR:
 					label.setIcon(this.regularIc);
+					break;
 				case HURRIED:
 					label.setIcon(this.runningIc);
+					break;
 				case DISABLED:
 					label.setIcon(this.handicapIc);
+					break;
 			}
-			label.setOpaque(true);
-			label.setVisible(true);
-			label.setSize(40, 40);
-			HOLDER.add(label);
-			label.repaint();
-		}
-	}
-
-	@SuppressWarnings("Duplicates")
-	private void updateIcons(Iterator<Icon> it) {
-		// update all of the existing icons
-		int i;
-		for (i = 0; i < HOLDER.getComponentCount() && it.hasNext(); i++) {
-			JLabel label = (JLabel) HOLDER.getComponent(i);
-			label.setIcon(it.next());
-			label.setOpaque(true);
-			label.setVisible(true);
-			it.remove();
-			label.repaint();
-		}
-
-		// if the updated queue is small
-		if (!it.hasNext()) {
-			while (i < HOLDER.getComponentCount()) {
-				HOLDER.remove(i++);
-			}
-		}
-		// add all remaining icons in the iterator
-		while (it.hasNext() /*&& i < icons.getComponentCount()*/) {
-			Icon icon = it.next();
-			JLabel label = new JLabel(icon);
-			label.setHorizontalAlignment(JLabel.CENTER);
-			label.setVerticalAlignment(JLabel.CENTER);
-			label.setOpaque(true);
+			label.setOpaque(false);
 			label.setVisible(true);
 			HOLDER.add(label);
-			it.remove();
-			label.repaint();
+			HOLDER.revalidate();
 		}
+		HOLDER.repaint();
 	}
 
 	@Override
 	public void onPersonLeaveQueue(int index) {
 		if (!icons.isEmpty()) {
 			icons.remove(index);
+			HOLDER.revalidate();
+			HOLDER.repaint();
 		}
 	}
 }

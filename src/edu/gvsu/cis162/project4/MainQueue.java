@@ -70,10 +70,6 @@ public class MainQueue implements ClockListener {
 			queueListener.onUpdateQueue(typesQueue);
 		}
 	}
-
-	private Person deQueue() {
-		return QUEUE.removeFirst();
-	}
 	/*****************************************
 	 * This is where the event happens (remove person if it's time?)
 	 *
