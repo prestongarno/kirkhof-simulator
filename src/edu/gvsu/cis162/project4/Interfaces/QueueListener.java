@@ -1,8 +1,7 @@
-package KirkhofSimulatorPack.Interfaces;
+package edu.gvsu.cis162.project4.Interfaces;
 
-import KirkhofSimulatorPack.GUI.PersonType;
+import edu.gvsu.cis162.project4.GUI.PersonType;
 
-import java.util.HashMap;
 import java.util.List;
 
 /****************************************

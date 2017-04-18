@@ -1,13 +1,11 @@
-package KirkhofSimulatorPack.GUI;
+package edu.gvsu.cis162.project4.GUI;
 
 import javax.swing.*;
-import javax.swing.event.AncestorListener;
 //import javafx.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-import KirkhofSimulatorPack.*;
-import KirkhofSimulatorPack.people.PersonProducer;
+import edu.gvsu.cis162.project4.StatsTracker;
 
 /**********************************************************************
  * Main application of GUI for food court simulation

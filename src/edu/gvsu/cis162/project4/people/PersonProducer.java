@@ -1,7 +1,7 @@
-package KirkhofSimulatorPack.people;
+package edu.gvsu.cis162.project4.people;
 
-import KirkhofSimulatorPack.ClockListener;
-import KirkhofSimulatorPack.Eatery;
+import edu.gvsu.cis162.project4.ClockListener;
+import edu.gvsu.cis162.project4.Eatery;
 
 import java.util.Random;
 

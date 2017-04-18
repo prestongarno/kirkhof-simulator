@@ -1,9 +1,12 @@
-package KirkhofSimulatorPack;
+package edu.gvsu.cis162.project4;
 
-import KirkhofSimulatorPack.people.Person;
-import com.sun.xml.internal.bind.v2.TODO;
+import edu.gvsu.cis162.project4.GUI.PersonType;
+import edu.gvsu.cis162.project4.Interfaces.QueueListener;
+import edu.gvsu.cis162.project4.people.Person;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 /**********************************************************************
@@ -19,16 +22,26 @@ public class Eatery extends Venue implements ClockListener {
 	/******************************************************************
 	 * Constructor for Eatery
 	 ****************************************************************/
-	public Eatery(){
+	public Eatery() {
 		this("Eatery");
 	}
-	
+
 	/*****************************************************************
 	 * Constructor for Eatery
 	 *****************************************************************/
-	public Eatery(String name){
+	public Eatery(String name) {
 		super(name);
 		this.name = name;
+	}
+
+	@Override
+	public int getMaxQlength() {
+		return 20;
+	}
+
+	@Override
+	public int getCurrentVenueTime() {
+		return new Double(Q.get(0).getEateryTime()).intValue();
 	}
 
 	/*******************************************************************
@@ -37,48 +50,34 @@ public class Eatery extends Venue implements ClockListener {
 	 ******************************************************************/
 	@Override
 	public void event(int tick) {
-	    int debugLoop = 0;
-			System.out.println(this);
-		Person person = null;
-
-		if (tick >= timeOfNextEvent) {
-
-			if (Q.size() >= 1) {
-				timeOfNextEvent = tick
-						+ (int) (Q.get(super.Q.size() - 1).getEateryTime() + 1);
-				// this is where you would send on the person to the
+		SwingUtilities.invokeLater(() -> {
+			if (Q.size() > 0) {
+				// this is where you would send on the person to th;
 				// next listeners.
-                if(timeOfNextEvent >= tick) {
-                    MainQueue.getInstance().add(Q.remove(0));
+				if (timeOfNextEvent >= tick) {
+					MainQueue.getInstance().add(Q.remove(0));
+					for (QueueListener qlstnr : this.listeners) {
+						qlstnr.onUpdateQueue(
+								Q.stream().map(PersonType::getType)
+										.collect(Collectors.toCollection(ArrayList::new)));
+					}
 				}
 				completed++;
 
 
 			}
-			for (int i = 0; i < Q.size()-1; i++) {
+			for (int i = 0; i < Q.size() - 1; i++) {
 
 				if (Q.get(i).getLeaveTime() > tick - Q.get(i).getTickTime()) {
 					//if the person exceeds waiting time, remove from
 					//simulation
-					Q.remove(i);
-					totalPeopleLeft++;
-					int finalI = i;
-					try {
-						this.listeners.forEach(listener -> listener.onPersonLeaveQueue(finalI));
-					} catch (Exception ex) {
-						ex.printStackTrace();
+					for (QueueListener qlstnr : this.listeners) {
+						qlstnr.onPersonLeaveQueue(i);
 					}
+					totalPeopleLeft++;
 				}
-
 			}
-
-			if (person != null) {
-				// take this person to the next station.
-				MainQueue.getInstance().add(person);
-				person = null; // I have send the person on.
-				storeTick=tick;
-			}
-		}
+		});
 	}
 
 	@Override

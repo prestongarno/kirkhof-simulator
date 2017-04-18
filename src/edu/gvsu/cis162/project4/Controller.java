@@ -1,15 +1,13 @@
-package KirkhofSimulatorPack;
+package edu.gvsu.cis162.project4;
 
-import KirkhofSimulatorPack.GUI.EateryCheckoutPanel;
-import KirkhofSimulatorPack.GUI.GUI;
-import KirkhofSimulatorPack.GUI.MainPanel;
-import KirkhofSimulatorPack.Interfaces.QueueListener;
-import KirkhofSimulatorPack.people.PersonProducer;
+import edu.gvsu.cis162.project4.GUI.EateryCheckoutPanel;
+import edu.gvsu.cis162.project4.GUI.GUI;
+import edu.gvsu.cis162.project4.GUI.MainPanel;
+import edu.gvsu.cis162.project4.Interfaces.QueueListener;
+import edu.gvsu.cis162.project4.people.PersonProducer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class Controller implements ClockListener {
 	private static int averageCashierTime=1;
 
 	/**Average Leave time*/
-	private static int averageLeaveTime=20;
+	private static int averageLeaveTime=40;
 
 	/**time until next person is added*/
 	private static int numOfTicksNextPerson=1;
@@ -100,6 +98,7 @@ public class Controller implements ClockListener {
         // add all of the listeners
         clock.add(mainQ);
         clock.add(producer);
+        clock.add(this);
 
         mainQ.registerQueueListener(gui.getMainPanel().getMainQDisplay());
     }
@@ -130,5 +129,10 @@ public class Controller implements ClockListener {
 
     @Override
     public void event(int tick) {
+        assert (checkEachLocationCount());
+    }
+    boolean checkEachLocationCount() {
+        return this.locations.stream().filter(venue -> venue instanceof Checkout)
+              .anyMatch(venue -> venue.Q.size() == ((EateryCheckoutPanel) venue.listeners.get(0)).icons.size());
     }
 }

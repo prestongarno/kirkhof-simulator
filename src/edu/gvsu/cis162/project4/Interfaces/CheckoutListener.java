@@ -1,6 +1,6 @@
-package KirkhofSimulatorPack.Interfaces;
+package edu.gvsu.cis162.project4.Interfaces;
 
-import KirkhofSimulatorPack.GUI.PersonType;
+import edu.gvsu.cis162.project4.GUI.PersonType;
 
 /****************************************
  * Created by preston on 4/12/17.
@@ -19,8 +19,4 @@ public interface CheckoutListener {
      ****************************************/
     void clearCheckout();
 
-	/*****************************************
-     * @param enabled if the checkout should be enabled or not
-     ****************************************/
-    void setEnabled(boolean enabled);
 }

@@ -1,10 +1,9 @@
-package KirkhofSimulatorPack;
+package edu.gvsu.cis162.project4;
 
-import KirkhofSimulatorPack.Interfaces.QueueListener;
-import KirkhofSimulatorPack.people.Person;
+import edu.gvsu.cis162.project4.Interfaces.QueueListener;
+import edu.gvsu.cis162.project4.people.Person;
 
 import java.lang.*;
-import java.util.Collections;
 
 /**
  * Created by Chad on 4/8/2017.
@@ -29,6 +28,15 @@ public class Checkout extends Venue implements ClockListener {
     	this.maxQlength = 1;
     }
 
+	@Override
+	public int getMaxQlength() {
+		return 1;
+	}
+
+	@Override
+	public int getCurrentVenueTime() {
+		return new Double(Q.get(0).getCashierTime()).intValue();
+	}
 
     public void setPerson(Person person) {
         if(person != null) throw new IllegalArgumentException();

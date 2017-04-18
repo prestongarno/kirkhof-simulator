@@ -1,4 +1,4 @@
-package KirkhofSimulatorPack;
+package edu.gvsu.cis162.project4;
 
 /** **************************************************
  * @author Roger Ferguson

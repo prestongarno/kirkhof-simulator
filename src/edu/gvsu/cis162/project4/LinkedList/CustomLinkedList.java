@@ -1,4 +1,4 @@
-package KirkhofSimulatorPack.LinkedList;
+package edu.gvsu.cis162.project4.LinkedList;
 
 
 import java.util.*;

@@ -1,9 +1,9 @@
-package KirkhofSimulatorPack.GUI;
+package edu.gvsu.cis162.project4.GUI;
 
-import KirkhofSimulatorPack.people.LimitedTimePerson;
-import KirkhofSimulatorPack.people.Person;
-import KirkhofSimulatorPack.people.RegularPerson;
-import KirkhofSimulatorPack.people.SpecialNeedsPerson;
+import edu.gvsu.cis162.project4.people.LimitedTimePerson;
+import edu.gvsu.cis162.project4.people.Person;
+import edu.gvsu.cis162.project4.people.RegularPerson;
+import edu.gvsu.cis162.project4.people.SpecialNeedsPerson;
 
 import javax.swing.*;
 /**********************************************************************
@@ -50,20 +50,4 @@ public enum PersonType {
         throw new IllegalStateException("this shouldn't happen");
     }
 
-    /******************************************************************
-     * Method to get type of icon 
-     * @return icon representation of person
-     * @throws IllegalStateException if person is not a type 
-     *****************************************************************/
-    public Icon getIcon() {
-        switch (this) {
-            case REGULAR:
-                return Util.REGULAR_PERSON;
-            case HURRIED:
-                return Util.RUNNING_PERSON;
-            case DISABLED:
-                return Util.SPECIAL_NEEDS_PERSON;
-        }
-        throw new IllegalStateException("this shouldn't happen");
-    }
 }

@@ -1,10 +1,8 @@
-package KirkhofSimulatorPack;
+package edu.gvsu.cis162.project4;
 
-import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
+import edu.gvsu.cis162.project4.LinkedList.CustomLinkedList;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 /** **************************************************

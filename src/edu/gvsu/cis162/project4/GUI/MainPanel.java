@@ -1,14 +1,15 @@
-package KirkhofSimulatorPack.GUI;
+package edu.gvsu.cis162.project4.GUI;
 
-import KirkhofSimulatorPack.Checkout;
-import KirkhofSimulatorPack.Interfaces.QueueListener;
+import edu.gvsu.cis162.project4.Interfaces.QueueListener;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainPanel extends JPanel {
-	
-	
+
+	private static final Dimension SIDE_PANEL_SIZE = new Dimension(400,300);
+	private static final Dimension MAIN_PANEL_SIZE = new Dimension(500,1000);
+
 	private final MainQueueDisplay MAIN_QUEUE;
 	private final JPanel EATERIES;
 	private final JPanel CHECKOUTS;
@@ -28,20 +29,21 @@ public class MainPanel extends JPanel {
 
 		// JPanel that holds the Eateries
 		EATERIES = new JPanel(sidePanelLayouts);
-		
 		MAIN_QUEUE = new MainQueueDisplay();
-
 
 		this.add(EATERIES, BorderLayout.WEST);
 		this.add(CHECKOUTS, BorderLayout.EAST);
 		this.add(MAIN_QUEUE, BorderLayout.CENTER);
+		EATERIES.setSize(SIDE_PANEL_SIZE);
+		EATERIES.setPreferredSize(SIDE_PANEL_SIZE);
+		CHECKOUTS.setPreferredSize(SIDE_PANEL_SIZE);
+		CHECKOUTS.setSize(SIDE_PANEL_SIZE);
 		EATERIES.setOpaque(false);
 		CHECKOUTS.setOpaque(false);
 		MAIN_QUEUE.setOpaque(false);
 		EATERIES.setVisible(true);
 		CHECKOUTS.setVisible(true);
 		MAIN_QUEUE.setVisible(true);
-		setBackground(Color.BLUE);
 		setFocusable(false);
 		setOpaque(false);
 	  	setVisible(true);
@@ -53,14 +55,7 @@ public class MainPanel extends JPanel {
 	public QueueListener addEatery(String name) {
 		// todo iterate through amount or split methods
 		EateryCheckoutPanel eateryPanel = new EateryCheckoutPanel(name);
-		
-		// label for the eatery title, possibly replace with icon later
-		JLabel label = new JLabel(name);
-
-		// add the title of the eatery
-		eateryPanel.add(label, BorderLayout.CENTER);
-
-		//add to this panel
+	//add to this panel
 		EATERIES.add(eateryPanel);
 
 		//return the listener to the controller
@@ -74,13 +69,6 @@ public class MainPanel extends JPanel {
 	public QueueListener addCheckout(String name) {
 		// todo iterate through amount or split methods
 		EateryCheckoutPanel checkoutPanel = new EateryCheckoutPanel(name);
-
-		// label for the eatery title, possibly replace with icon later
-		JLabel label = new JLabel(name);
-
-		// add the title of the eatery
-		checkoutPanel.add(label, BorderLayout.CENTER);
-
 		//add to this panel
 		CHECKOUTS.add(checkoutPanel);
 

@@ -1,4 +1,4 @@
-package KirkhofSimulatorPack.people;
+package edu.gvsu.cis162.project4.people;
 
 import javax.swing.*;
 

@@ -1,7 +1,6 @@
 package UnitTests;
 
-import KirkhofSimulatorPack.GUI.Util;
-import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
+import edu.gvsu.cis162.project4.LinkedList.CustomLinkedList;
 import org.junit.Before;
 import org.junit.Test;
 

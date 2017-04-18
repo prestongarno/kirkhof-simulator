@@ -1,11 +1,10 @@
-package KirkhofSimulatorPack;
+package edu.gvsu.cis162.project4;
 
 
-import KirkhofSimulatorPack.GUI.MainPanel;
-import KirkhofSimulatorPack.GUI.PersonType;
-import KirkhofSimulatorPack.Interfaces.QueueListener;
-import KirkhofSimulatorPack.LinkedList.CustomLinkedList;
-import KirkhofSimulatorPack.people.Person;
+import edu.gvsu.cis162.project4.GUI.PersonType;
+import edu.gvsu.cis162.project4.Interfaces.QueueListener;
+import edu.gvsu.cis162.project4.LinkedList.CustomLinkedList;
+import edu.gvsu.cis162.project4.people.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class MainQueue implements ClockListener {
 	private static MainQueue instance;
 
 	/*****************************************
-	 * This solves the problem of accessing the main queue from checkouts and eateries
+	 * Get the main queue instance
 	 * @return the instance of the main queue
 	 ****************************************/
 	public static MainQueue getInstance() {
@@ -62,9 +61,19 @@ public class MainQueue implements ClockListener {
 	 * @param person the person to add to the queue
 	 ****************************************/
 	public void add(Person person) {
-		this.QUEUE.add(person);
+		this.QUEUE.addLast(person);
+		List<PersonType> typesQueue = new ArrayList<>(size());
+		for (int i = 0; i < QUEUE.size(); i++) {
+			typesQueue.add(PersonType.getType(QUEUE.get(i)));
+		}
+		for (QueueListener queueListener : QUEUE_LISTENERS) {
+			queueListener.onUpdateQueue(typesQueue);
+		}
 	}
-	
+
+	private Person deQueue() {
+		return QUEUE.removeFirst();
+	}
 	/*****************************************
 	 * This is where the event happens (remove person if it's time?)
 	 *
@@ -92,6 +101,9 @@ public class MainQueue implements ClockListener {
 				QUEUE.remove(p);
 			}
 		}
+		for (QueueListener queueListener : QUEUE_LISTENERS) {
+			queueListener.onUpdateQueue(typesQueue);
+		}
 	}
 
 
@@ -100,7 +112,6 @@ public class MainQueue implements ClockListener {
 	 * @return
 	 ****************************************/
 	private Person getNextPerson(){
-		//TODO: fix getLast() method in the linked list
 		return QUEUE.removeLast(); //return last person in line
 	}
 	

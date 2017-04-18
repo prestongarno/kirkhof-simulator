@@ -1,6 +1,5 @@
-package KirkhofSimulatorPack;
+package edu.gvsu.cis162.project4;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,11 +1,10 @@
-package KirkhofSimulatorPack;
+package edu.gvsu.cis162.project4;
 
-import KirkhofSimulatorPack.GUI.PersonType;
-import KirkhofSimulatorPack.Interfaces.QueueListener;
-import KirkhofSimulatorPack.people.Person;
+import edu.gvsu.cis162.project4.GUI.PersonType;
+import edu.gvsu.cis162.project4.Interfaces.QueueListener;
+import edu.gvsu.cis162.project4.people.Person;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,26 +99,17 @@ public abstract class Venue implements ClockListener {
 	 ****************************************/
 	public void add(Person person) {
 		Q.add(person);
+		timeOfNextEvent = storeTick + getCurrentVenueTime() + 1;
+		this.updateListeners();
 		if (Q.size() > maxQlength)
 			maxQlength = Q.size();
 	}
-	/*****************************************
-	 * The amount of people still in line
-	 *
-	 * @return Q.size The amount of people in the q line
-	 ****************************************/
-	public int getLeft() {
-		return Q.size();
-	}
-
 	/*****************************************
 	 * The maximum number of people in line
 	 *
 	 * @return maxQlength
 	 ****************************************/
-	public String getMaxQlength() {
-		return Integer.toString(maxQlength);
-	}
+	public abstract int getMaxQlength();
 
 	/*****************************************
 	 * Method to get the average time a person spent at the venue
@@ -134,6 +124,8 @@ public abstract class Venue implements ClockListener {
 		//average=sum/completed;
 		return Integer.toString(average);
 	}
+
+	public abstract int getCurrentVenueTime();
 
 
 	/*****************************************
