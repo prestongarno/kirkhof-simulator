@@ -3,7 +3,6 @@ package KirkhofSimulatorPack.GUI;
 import javax.swing.*;
 //import javafx.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import KirkhofSimulatorPack.*;
@@ -15,7 +14,10 @@ import KirkhofSimulatorPack.people.PersonProducer;
  *@author 
  *@version 4/12/17
  *********************************************************************/
-public class GUI implements ActionListener {
+public class GUI {
+
+	//Constants
+	private static final Dimension MAX_TEXT_FIELD = new Dimension(200,30);
 
 	private Clock clk;
 
@@ -154,17 +156,11 @@ public class GUI implements ActionListener {
     	
 
 		panel = new JPanel();
-		panel.setLayout(new BorderLayout());
+		panel.setLayout(new BorderLayout(10,10));
 		panel.setVisible(true);
 		panel.setFocusable(true);
 
-
-		// creation of Center Panel
-		// Center panel runs simulation
-/*		centerPanel = new JPanel();
-		centerPanel.setLayout(new GridLayout(5, 5));
-		centerPanel.setVisible(true);
-		centerPanel.setFocusable(true);*/
+		// add the main panel
 		this.mainPanel = mainPanel;
 		this.panel.add(mainPanel, BorderLayout.CENTER);
 
@@ -182,23 +178,22 @@ public class GUI implements ActionListener {
      	avgCashTime = new JTextField();
      	numTicksNext = new JTextField();
      	
-     	//Left Panel Action Listeners
-     	startButton.addActionListener(this);
-		stopButton.addActionListener(this);
-		updateInfo.addActionListener(this);
-
-		// Add elements to left panel
-		// Use of rigid area to create spacing between elements
-		panelLeft.add(startButton);
+     	//Add elements to left panel
+        // Use of rigid area to create spacing between elements
+        panelLeft.add(startButton);
         panelLeft.add(Box.createRigidArea(new Dimension(0,5)));
         panelLeft.add(stopButton);
         panelLeft.add(new JLabel("Average Eatery Time"));
+		avgEatTime.setMaximumSize(MAX_TEXT_FIELD);
         panelLeft.add(avgEatTime);
         panelLeft.add(new JLabel("Average Leave Time"));
+        avgLeaveTime.setMaximumSize(MAX_TEXT_FIELD);
         panelLeft.add(avgLeaveTime);
         panelLeft.add(new JLabel("Average Cash Time"));
+        avgCashTime.setMaximumSize(MAX_TEXT_FIELD);
         panelLeft.add(avgCashTime);
         panelLeft.add(new JLabel("Time Until Next Person"));
+		numTicksNext.setMaximumSize(MAX_TEXT_FIELD);
         panelLeft.add(numTicksNext);
         panelLeft.add(updateInfo);
      	
@@ -305,42 +300,6 @@ public class GUI implements ActionListener {
     	return this.mainPanel;
 	 }
     
- 
-
- /**********************************************************************
-  * Action perform statements for buttons
-  *********************************************************************/
-    public void actionPerformed(ActionEvent e) {
-
-		clk = new Clock();
-
-		eateryArray = new Eatery[5];
-
-        if(e.getSource()==startButton){
-			clk.startClock();
-        }
-        
-        if(e.getSource()==stopButton){
-        	clk.stopClock();
-        }
-        
-        if(e.getSource()==updateInfo){
-        	clk.stopClock();
-        	if(!avgEatTime.getText().isEmpty())
-        		averageEateryTime=Integer.parseInt(avgEatTime.getText());
-        	if(!avgLeaveTime.getText().isEmpty())
-        		averageLeaveTime=Integer.parseInt(avgLeaveTime.getText());
-        	if(!avgCashTime.getText().isEmpty())
-        		averageCashierTime=Integer.parseInt(avgCashTime.getText());
-        	if(!numTicksNext.getText().isEmpty())
-        		numOfTicksNextPerson=Integer.parseInt(numTicksNext.getText());
-        	PersonProducer newSim = new PersonProducer(eateryArray,
-    				numOfTicksNextPerson, averageEateryTime,
-    				averageCashierTime, averageLeaveTime);
-    		clk.add(newSim);
-        }
-    }
-
     public void setStartButtonListener(ActionListener listener) {
     	startButton.addActionListener(listener);
 	}
